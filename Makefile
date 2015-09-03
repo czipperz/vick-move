@@ -33,7 +33,7 @@ cleantest:
 	rm -R ${TO}
 
 test: ${files} ${testfiles}
-	${CXX} -o $T/out $^ ${plugins_o} ${CFLAGS} ${LDFLAGS}
+	${CXX} -o $T/out $^ ${CFLAGS} ${LDFLAGS}
 	./$T/out
 
 tags:
