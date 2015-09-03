@@ -2,7 +2,7 @@
 
 #include "file_contents.hh"
 #include "hooks.hh"
-#include "int_to_str.hh"
+#include "to_str.hh"
 #include "move.hh"
 #include "newmove.hh"
 #include "show_message.hh"

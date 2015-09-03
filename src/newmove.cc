@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "configuration.hh"
-#include "int_to_str.hh"
+#include "to_str.hh"
 #include "newmove.hh"
 #include "show_message.hh"
 #include "visual.hh"
