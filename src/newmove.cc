@@ -1,22 +1,50 @@
-#include <ncurses.h>
 #include <string>
 #include <vector>
+#include <boost/optional.hpp>
 
+#include "prompt.hh"
 #include "configuration.hh"
 #include "to_str.hh"
 #include "newmove.hh"
 #include "show_message.hh"
 #include "visual.hh"
 
-void redrawyx(contents& contents) {
-    move(contents.y,to_visual(contents.cont[contents.y],contents.x));
-}
-
-void mvline(contents& contents, unsigned long line) {
-    mvrel(contents, line - contents.y, 0);
+void mvline(contents& contents, boost::optional<int> line) {
+    if(line) {
+        contents.x = 0;
+        int cont = line.get();
+        if(cont < 0) {
+            show_message("Can't move to a negative line!");
+            contents.y = 0;
+            return;
+        }
+        contents.y = cont;
+        if(cont >= contents.cont.size()) {
+            contents.y = contents.cont.size() - 1;
+            show_message("Can't move past end of buffer!");
+        }
+    } else {
+        while(true) {
+            std::string str = prompt("Goto line: ");
+            try {
+                int res = std::stoi(str);
+                mvline(contents, res);
+                return;
+            } catch(std::invalid_argument) {
+                continue;
+            }
+        }
+    }
 }
 void mv(contents& contents, unsigned long _y, unsigned long _x) {
-    mvrel(contents, _y - contents.y, _x - contents.x);
+    contents.y = _y;
+    contents.x = _x;
+    if((long) contents.y < 0) contents.y = 0;
+    if(contents.y >= contents.cont.size())
+        contents.y = contents.cont.size() - 1;
+    if((long) contents.x < 0) contents.x = 0;
+    if(contents.x >= contents.cont[contents.y].size())
+        contents.x = contents.cont[contents.y].size() - 1;
 }
 
 void mvrel(contents& contents, long y, long x) {
@@ -26,46 +54,61 @@ void mvrel(contents& contents, long y, long x) {
     else      mvf(contents, x);
 }
 
-void mvcol(contents& contents, unsigned long col) {
-    unsigned int len = contents.cont[contents.y].length();
-    if(len >= col) {
-        contents.x = col;
-        contents.waiting_for_desired = false;
+void mvcol(contents& contents, boost::optional<int> col) {
+    if(col) {
+        unsigned int len = contents.cont[contents.y].length();
+        if(len >= col.get()) {
+            contents.x = col.get();
+            contents.waiting_for_desired = false;
+        } else {
+            show_message((std::string("Can't move to column: ")
+                          + int_to_str(col.get())).c_str());
+        }
     } else {
-        show_message((std::string("Can't move to column: ")
-                      + int_to_str(col)).c_str());
+        while(true) {
+            std::string str = prompt("Goto column: ");
+            try {
+                int res = std::stoi(str);
+                mvcol(contents, res);
+                return;
+            } catch(std::invalid_argument) {
+                continue;
+            }
+        }
     }
-    redrawyx(contents);
 }
 
-void mvsot(contents& contents) {
-    mvsol(contents);
+void mvsot(contents& contents, boost::optional<int> op) {
+    mvsol(contents, op);
     const std::string& str = contents.cont[contents.y];
-    for(unsigned int i = 0; i < str.length(); i++)
-        if(str[i] == ' ' || str[i] == '\t') mvf(contents);
+    for(unsigned int i = 0; i < str.length(); i++) {
+        if(str[i] == ' ' || str[i] == '\t')
+            mvf(contents, op);
         else break;
+    }
 }
 
-void mveol(contents& contents) {
+void mveol(contents& contents, boost::optional<int>) {
     mvcol(contents,contents.cont[contents.y].length() - 1);
 }
-void mvsol(contents& contents) { mvcol(contents,0); }
+void mvsol(contents& contents, boost::optional<int>) {
+    mvcol(contents,0);
+}
 
-void mvsop(contents& contents) {
+void mvsop(contents& contents, boost::optional<int>) {
     contents.y = 0;
     contents.x = 0;
     contents.waiting_for_desired = false;
-    redrawyx(contents);
 }
-void mveop(contents& contents) {
+void mveop(contents& contents, boost::optional<int>) {
     contents.y = contents.cont.size() - 1;
     contents.x = 0;
     contents.y_offset = contents.y - contents.max_y;
     contents.waiting_for_desired = false;
-    redrawyx(contents);
 }
 
-void mvd(contents& contents, long times) {
+void mvd(contents& contents, boost::optional<int> op) {
+    int times = op ? op.get() : 1;
     if(contents.y + times < 0 || contents.y + times >= contents.cont.size()) {
         show_message("Can't move to that location (start/end of buffer)");
         return;
@@ -107,9 +150,11 @@ void mvd(contents& contents, long times) {
         }
     }
     contents.x = contents.x >= 0 ? contents.x : 0;
-    redrawyx(contents);
 }
-void mvu(contents& contents, long times) { mvd(contents,-times); }
+void mvu(contents& contents, boost::optional<int> op) {
+    if(op) mvd(contents,-op.get());
+    else mvd(contents,-1);
+}
 
 
 static bool isDeliminator(char ch) {
@@ -117,16 +162,18 @@ static bool isDeliminator(char ch) {
         if(DELIMINATORS[i] == ch) return true;
     return false;
 }
-void mvfw(contents& contents,unsigned long words) {
+void mvfw(contents& contents, boost::optional<int> op) {
+    
 }
-void mvbw(contents& contents,unsigned long words) {
+void mvbw(contents& contents, boost::optional<int> op) {
 }
 
 
 inline static unsigned int fixLen(unsigned int len) {
     return len ? len : 1;
 }
-void mvf(contents& contents, unsigned long times) {
+void mvf(contents& contents, boost::optional<int> op) {
+    int times = op ? op.get() : 1;
     long newx = contents.x + times;
     try {
         while(fixLen(contents.cont.at(contents.y).length()) <= newx) {
@@ -138,9 +185,9 @@ void mvf(contents& contents, unsigned long times) {
     if(contents.x < 0) contents.x = 0;
     else      contents.x = newx;
     contents.waiting_for_desired = false;
-    redrawyx(contents);
 }
-void mvb(contents& contents, unsigned long times) {
+void mvb(contents& contents, boost::optional<int> op) {
+    int times = op ? op.get() : 1;
     if(contents.y == 0 && contents.x == 0) return;
     long newx = contents.x - times;
     try {
@@ -152,5 +199,4 @@ void mvb(contents& contents, unsigned long times) {
     if(newx < 0) contents.x = 0;
     else         contents.x = newx;
     contents.waiting_for_desired = false;
-    redrawyx(contents);
 }
