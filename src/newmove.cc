@@ -163,7 +163,13 @@ static bool isDeliminator(char ch) {
     return false;
 }
 void mvfw(contents& contents, boost::optional<int> op) {
-    
+    //move over deliminators
+    //move over non deliminators
+}
+void mvfeow(contents& contents, boost::optional<int> op) {
+    //move at least one forward
+    //move over non deliminators
+    //move over deliminators
 }
 void mvbw(contents& contents, boost::optional<int> op) {
 }
