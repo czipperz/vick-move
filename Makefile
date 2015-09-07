@@ -30,7 +30,7 @@ clean:
 	[ -z "`find -name '*~'`" ] || rm `find -name '*~'`
 
 cleantest:
-	rm -R ${TO}
+	[ ! -d ${TO} ] || rm -R ${TO}
 
 test: ${files} ${testfiles}
 	${CXX} -o $T/out $^ ${CFLAGS} ${LDFLAGS}
