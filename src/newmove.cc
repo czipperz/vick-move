@@ -158,8 +158,8 @@ void mvu(contents& contents, boost::optional<int> op) {
 
 
 static bool isDeliminator(char ch) {
-    for(unsigned int i = 0; i < DELIMINATORS.length(); i++)
-        if(DELIMINATORS[i] == ch) return true;
+    for(auto i : DELIMINATORS)
+        if(i == ch) return true;
     return false;
 }
 void mvfw(contents& contents, boost::optional<int> op) {
