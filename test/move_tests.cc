@@ -2,7 +2,7 @@
 #include <ncurses.h>
 #include <boost/optional.hpp>
 
-#include "newmove.hh"
+#include "move.hh"
 #include "configuration.hh"
 #include "visual.hh"
 #include "catch.hpp"

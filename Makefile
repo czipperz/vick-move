@@ -7,9 +7,9 @@ T=test
 TO=testout
 CXX=clang++
 
-files=$O/newmove.o      \
+files=$O/move.o      \
 
-testfiles = ${TO}/newmove_tests.o    \
+testfiles = ${TO}/move_tests.o    \
 
 all: ${files}
 

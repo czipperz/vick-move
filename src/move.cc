@@ -5,7 +5,7 @@
 #include "prompt.hh"
 #include "configuration.hh"
 #include "to_str.hh"
-#include "newmove.hh"
+#include "move.hh"
 #include "show_message.hh"
 #include "visual.hh"
 
