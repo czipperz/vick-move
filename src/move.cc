@@ -177,6 +177,13 @@ void mvfeow(contents& contents, boost::optional<int> op) {
     //move over deliminators
 }
 void mvbw(contents& contents, boost::optional<int> op) {
+    //move back one then
+    //if delimitor then move back until no delimitor
+    //else if whitespace then move back until not whitespace then
+    //   move back consistently over delimitors or word chars
+    //else /*word char*/ move back until not word char or
+    //   whitespace
+    //move forward one
 }
 
 
