@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <boost/optional.hpp>
+#include <locale>
 
 #include "../../../src/prompt.hh"
 #include "../../../src/configuration.hh"
@@ -162,14 +164,53 @@ void mvu(contents& contents, boost::optional<int> op) {
 }
 
 
-static bool isDeliminator(char ch) {
-    for(auto i : DELIMINATORS)
-        if(i == ch) return true;
-    return false;
+inline static bool isDeliminator(char ch) {
+    return std::find(DELIMINATORS.begin(), DELIMINATORS.end(), ch)
+                                        != DELIMINATORS.end();
+}
+inline static bool isWhitespace(char ch) {
+    static const std::locale loc;
+    return std::isspace(ch, loc);
 }
 void mvfw(contents& contents, boost::optional<int> op) {
-    //move over deliminators
-    //move over non deliminators
+    if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
+    int num = op ? op.get() : 1;
+    if(num == 0 || num == -0) return;
+    if(num < 0) return mvbw(contents, -op.get());
+    //if deliminator then move forward until not deliminator then move over whitespace
+    //else move foward until (whitespace -> move till not whitespace) or (deliminator -> stop)
+    #define boundsCheck if(contents.y >= contents.cont.size() || \
+                           (contents.y == contents.cont.size() - 1 &&   \
+                            contents.x >= contents.cont[contents.y].size())) return;
+    #define ch contents.cont[contents.y][contents.x]
+    if(isDeliminator(ch)) {
+        do {
+            mvf(contents);
+            boundsCheck;
+        } while(isDeliminator(ch));
+        while(isWhitespace(ch)) {
+            mvf(contents);
+            boundsCheck;
+        }
+    } else {
+        while(!isDeliminator(ch) and !isWhitespace(ch)) {
+            mvf(contents);
+            boundsCheck;
+        }
+        if(isWhitespace(ch)) {
+            while(isWhitespace(ch)) {
+                mvf(contents);
+                boundsCheck;
+            }
+        } else {
+            while(isDeliminator(ch)) {
+                mvf(contents);
+                boundsCheck;
+            }
+        }
+    }
+    #undef boundsCheck
+    if(num > 0) mvfw(contents,num - 1);
 }
 void mvfeow(contents& contents, boost::optional<int> op) {
     //move at least one forward
