@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "file_contents.hh"
+#include "../../../src/file_contents.hh"
 
 /// prompts for int if not given one
 void mvline (contents&, boost::optional<int>);

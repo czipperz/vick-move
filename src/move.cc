@@ -2,12 +2,12 @@
 #include <vector>
 #include <boost/optional.hpp>
 
-#include "prompt.hh"
-#include "configuration.hh"
-#include "to_str.hh"
+#include "../../../src/prompt.hh"
+#include "../../../src/configuration.hh"
+#include "../../../src/to_str.hh"
+#include "../../../src/show_message.hh"
+#include "../../../src/visual.hh"
 #include "move.hh"
-#include "show_message.hh"
-#include "visual.hh"
 
 void mvline(contents& contents, boost::optional<int> line) {
     if(line) {
