@@ -25,6 +25,7 @@ void mvd    (contents&, boost::optional<int> = 1);
 void mvu    (contents&, boost::optional<int> = 1);
 
 void mvfw   (contents&, boost::optional<int> = 1);
+void mvfeow (contents&, boost::optional<int> = 1);
 void mvbw   (contents&, boost::optional<int> = 1);
 
 void mvf    (contents&, boost::optional<int> = 1);
