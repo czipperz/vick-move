@@ -210,6 +210,7 @@ void mvfw(contents& contents, boost::optional<int> op) {
         }
     }
     #undef boundsCheck
+    #undef ch
     if(num > 0) mvfw(contents,num - 1);
 }
 void mvfeow(contents& contents, boost::optional<int> op) {
