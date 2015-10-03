@@ -240,9 +240,9 @@ void mvf(contents& contents, boost::optional<int> op) {
             contents.y++;
         }
     } catch(...) { }
-    if(contents.y >= contents.cont.size()) contents.y = contents.cont.size()-1;
+    if(contents.y >= contents.cont.size()) contents.y = contents.cont.size() - 1;
     if(contents.x < 0) contents.x = 0;
-    else      contents.x = newx;
+    else               contents.x = newx;
     contents.waiting_for_desired = false;
 }
 void mvb(contents& contents, boost::optional<int> op) {
