@@ -32,7 +32,11 @@ clean:
 cleantest:
 	[ ! -d ${TO} ] || rm -R ${TO}
 
-test: ${files} ${testfiles}
+$T/blank:
+	touch $T/blank
+
+test: ${files} ${testfiles} $T/blank
+	rm $T/blank
 	${CXX} -o $T/out $^ ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting
 	./$T/out
 
