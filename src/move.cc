@@ -214,13 +214,15 @@ void mvfeow(contents& contents, boost::optional<int> op) {
     //if delimitor then move until not delimitor
     //else move until delimitor or whitespace
     //move back one
-    #define boundsCheck if(contents.y >= contents.cont.size()           \
-                           || (contents.y == contents.cont.size() - 1 && \
-                               contents.x >= contents.cont[contents.y].size()) \
-                           || (contents.x == 0 && !isWhitespace(ch))) { \
-            mvb(contents);                                              \
-            return;                                                     \
-        }
+    #define boundsCheck                                              \
+      if ((contents.y >= contents.cont.size()) ||                    \
+          (contents.y == contents.cont.size() - 1 &&                 \
+           contents.x >= contents.cont[contents.y].size()) ||        \
+          (contents.x == 0 && !isWhitespace(ch) &&                   \
+           contents.cont[contents.y].size() != 0)) {                 \
+        mvb(contents);                                               \
+        return;                                                      \
+      }
     mvf(contents);
     while(isWhitespace(ch)) {
         mvf(contents);
