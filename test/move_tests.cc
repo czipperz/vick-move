@@ -16,21 +16,18 @@ TEST_CASE("mvline") {
     contents.push_back("etc");
 
     initscr();
-    mvline(contents, 1); // 1 = "bye"
-    int y1 = contents.y, // 1
-        x1 = contents.x; // 1
+    mvline(contents, 1);
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 0);
 
-    mvline(contents, -1); // -1 should go to 0
-    int y2 = contents.y; // 0
+    mvline(contents, -1);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 0);
 
-    mvline(contents, 4); // 4 > len, go to 3
-    int y3 = contents.y; // 3
+    mvline(contents, 4);
+    CHECK(contents.y == 3);
+    CHECK(contents.x == 0);
     endwin();
-
-    REQUIRE(x1 == 0);
-    REQUIRE(y1 == 1);
-    REQUIRE(y2 == 0);
-    REQUIRE(y3 == 3);
 }
 
 TEST_CASE("mv") {
@@ -42,24 +39,17 @@ TEST_CASE("mv") {
 
     initscr();
     mv(contents, 1, 4); // past end
-    int y1 = contents.y,
-        x1 = contents.x;
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 3);
 
     mv(contents, 2, 0);
-    int y2 = contents.y,
-        x2 = contents.x;
+    CHECK(contents.y == 2);
+    CHECK(contents.x == 0);
 
     mv(contents, 6, 2);
-    int y3 = contents.y,
-        x3 = contents.x;
+    CHECK(contents.y == 3);
+    CHECK(contents.x == 2);
     endwin();
-
-    REQUIRE(y1 == 1);
-    REQUIRE(x1 == 3);
-    REQUIRE(y2 == 2);
-    REQUIRE(x2 == 0);
-    REQUIRE(y3 == 3);
-    REQUIRE(x3 == 2);
 }
 
 TEST_CASE("mvcol") {
@@ -68,24 +58,17 @@ TEST_CASE("mvcol") {
 
     initscr();
     mvcol(contents, 3);
-    int y1 = contents.y,
-        x1 = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 3);
 
     mvcol(contents, 10); //doesn't do anything
-    int y2 = contents.y,
-        x2 = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.y == 0);
 
     mvcol(contents, 0);
-    int y3 = contents.y,
-        x3 = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 0);
     endwin();
-
-    REQUIRE(0 == y1);
-    REQUIRE(0 == y2);
-    REQUIRE(0 == y3);
-    REQUIRE(3 == x1);
-    REQUIRE(3 == x2);
-    REQUIRE(0 == x3);
 }
 
 TEST_CASE("mvsot") {
@@ -94,10 +77,9 @@ TEST_CASE("mvsot") {
 
     initscr();
     mvsot(contents, boost::none);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 4);
     endwin();
-
-    REQUIRE(0 == contents.y);
-    REQUIRE(4 == contents.x);
 }
 
 TEST_CASE("mveol") {
@@ -106,12 +88,9 @@ TEST_CASE("mveol") {
 
     initscr();
     mveol(contents, boost::none);
-    int y = contents.y,
-        x = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 4);
     endwin();
-
-    REQUIRE(4 == x);
-    REQUIRE(0 == y);
 }
 
 TEST_CASE("mvsol") {
@@ -120,12 +99,9 @@ TEST_CASE("mvsol") {
 
     initscr();
     mvsol(contents, boost::none);
-    int y = contents.y,
-        x = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 0);
     endwin();
-
-    REQUIRE(0 == y);
-    REQUIRE(0 == x);
 }
 
 TEST_CASE("mvd") {
@@ -136,17 +112,13 @@ TEST_CASE("mvd") {
 
     initscr();
     mvd(contents,2);
-    int y = contents.y,
-        x = contents.x;
-    mvd(contents, boost::none);
-    int y1 = contents.y,
-        x1 = contents.x;
-    endwin();
+    CHECK(contents.y == 2);
+    CHECK(contents.x == 0);
 
-    REQUIRE(0 == x);
-    REQUIRE(0 == x1);
-    REQUIRE(2 == y);
-    REQUIRE(2 == y1);
+    mvd(contents, boost::none);
+    CHECK(contents.y == 2);
+    CHECK(contents.x == 0);
+    endwin();
 }
 
 TEST_CASE("mvd_2") {
@@ -158,32 +130,21 @@ TEST_CASE("mvd_2") {
 
     initscr();
     mveol(contents, boost::none);
-    int y = contents.y,
-        x = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 21);
+
     mvd(contents, boost::none);
-    int y1 = contents.y,
-        x1 = contents.x;
-    int d1 = contents.desired_x;
-    bool w1 = contents.waiting_for_desired;
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 4);
+    CHECK(contents.desired_x == 21);
+    CHECK(contents.waiting_for_desired);
+
     mvd(contents, boost::none);
-    int y2 = contents.y,
-        x2 = contents.x;
-    int d2 = contents.desired_x;
-    bool w2 = contents.waiting_for_desired;
+    CHECK(contents.y == 2);
+    CHECK(contents.x == 4);
+    CHECK(contents.desired_x == 21);
+    CHECK(contents.waiting_for_desired);
     endwin();
-
-    REQUIRE(0 == y);
-    REQUIRE(21 == x);
-
-    REQUIRE(1 == y1);
-    REQUIRE(4 == x1);
-    REQUIRE(21 == d1);
-    REQUIRE(true == w1);
-
-    REQUIRE(2 == y2);
-    REQUIRE(4 == x2);
-    REQUIRE(21 == d2);
-    REQUIRE(true == w2);
 }
 
 TEST_CASE("mvu") {
@@ -193,14 +154,11 @@ TEST_CASE("mvu") {
 
     initscr();
     mvu(contents, boost::none);
-    int y1 = contents.y,
-        x1 = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 1);
+    CHECK(contents.waiting_for_desired);
+    CHECK(contents.desired_x == 6);
     endwin();
-
-    REQUIRE(0 == y1);
-    REQUIRE(1 == x1);
-    REQUIRE(true == contents.waiting_for_desired);
-    REQUIRE(6 == contents.desired_x);
 }
 
 TEST_CASE("mvf") {
@@ -210,17 +168,13 @@ TEST_CASE("mvf") {
 
     initscr();
     mvf(contents,3);
-    int y = contents.y,
-        x = contents.x;
-    mvf(contents,4);
-    int y1 = contents.y,
-        x1 = contents.x;
-    endwin();
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 3);
 
-    REQUIRE(0 == y);
-    REQUIRE(3 == x);
-    REQUIRE(1 == y1);
-    REQUIRE(1 == x1);
+    mvf(contents,4);
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 1);
+    endwin();
 }
 
 TEST_CASE("mvf_2") {
@@ -234,17 +188,13 @@ TEST_CASE("mvf_2") {
 
     initscr();
     mveol(contents, boost::none);
-    int y = contents.y,
-        x = contents.x;
-    mvf(contents,2);
-    int y1 = contents.y,
-        x1 = contents.x;
-    endwin();
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 21);
 
-    REQUIRE(0 == y);
-    REQUIRE(21 == x);
-    REQUIRE(1 == y1);
-    REQUIRE(1 == x1);
+    mvf(contents,2);
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 1);
+    endwin();
 }
 
 TEST_CASE("mvf_over_empty_lines") {
@@ -255,10 +205,9 @@ TEST_CASE("mvf_over_empty_lines") {
 
     initscr();
     mvf(contents, boost::none);
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 0);
     endwin();
-
-    REQUIRE(0 == contents.x);
-    REQUIRE(1 == contents.y);
 }
 
 TEST_CASE("mvf_over_tabs") {
@@ -268,19 +217,13 @@ TEST_CASE("mvf_over_tabs") {
 
     initscr();
     mvf(contents, boost::none);
-    int y,x;
-    y = contents.y;
-    x = contents.x;
-    mvf(contents, boost::none);
-    int y1,x1;
-    y1= contents.y;
-    x1= contents.x;
-    endwin();
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 0);
 
-    REQUIRE(1 == y);
-    REQUIRE(0 == x);
-    REQUIRE(1 == y1);
-    REQUIRE(1 == x1);
+    mvf(contents, boost::none);
+    CHECK(contents.y == 1);
+    CHECK(contents.x == 1);
+    endwin();
 }
 
 TEST_CASE("mvb") {
@@ -290,11 +233,9 @@ TEST_CASE("mvb") {
 
     initscr();
     mvb(contents,2);
-    int y = contents.y,
-        x = contents.x;
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 4);
     endwin();
 
-    REQUIRE(0 == y);
-    REQUIRE(4 == x);
 }
 
