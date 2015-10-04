@@ -101,12 +101,10 @@ void mvsop(contents& contents, boost::optional<int>) {
     contents.y = 0;
     contents.x = 0;
     contents.waiting_for_desired = false;
-    contents.y_offset = 0;
 }
 void mveop(contents& contents, boost::optional<int>) {
     contents.y = contents.cont.size() - 1;
     contents.x = 0;
-    contents.y_offset = contents.y - contents.max_y + 2;
     contents.waiting_for_desired = false;
 }
 
@@ -153,10 +151,6 @@ void mvd(contents& contents, boost::optional<int> op) {
         }
     }
     contents.x = (long) contents.x >= 0 ? contents.x : 0;
-    if(contents.y - contents.y_offset >= contents.max_y)
-        contents.y_offset = contents.y - contents.y_offset + 1;
-    if(contents.y < contents.y_offset)
-        contents.y_offset = contents.y;
 }
 void mvu(contents& contents, boost::optional<int> op) {
     if(op) mvd(contents,-op.get());
