@@ -4,11 +4,12 @@ LDFLAGS=`find ../../out -type f -not \( -name main.o -o -name configuration.o \)
 O=out
 S=src
 T=test
+TO=testout
 CXX=clang++
 
 files=$O/move.o      \
 
-testfiles = $O/move_tests.o    \
+testfiles=${TO}/move_tests.o    \
 
 all: ${files}
 
@@ -20,21 +21,22 @@ $O/%.o: $S/%.cc
 	@mkdir -p $O
 	${CXX} -o $@ -c $< ${CFLAGS}
 
-$O/%.o: $T/%.cc
-	@mkdir -p $O
+${TO}/%.o: $T/%.cc
+	@mkdir -p ${TO}
 	${CXX} -o $@ -c $< ${CFLAGS}
 
 clean:
-	[ ! -d out ] || rm -R out
+	[ ! -d $O ] || rm -R $O
 	[ -z "`find -name '*~'`" ] || rm `find -name '*~'`
+	[ ! -d ${TO} ] || rm -R ${TO}
 
 $T/blank:
 	touch $T/blank
 
 test: ${files} ${testfiles} $T/blank
 	rm $T/blank
-	${CXX} -o $T/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting
-	./$T/out
+	${CXX} -o ${TO}/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting ../../testout/test_main.o
+	./${TO}/out
 
 tags:
 	etags `find src -name '*.cc'`
