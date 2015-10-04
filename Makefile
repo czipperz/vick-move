@@ -37,7 +37,7 @@ $T/blank:
 
 test: ${files} ${testfiles} $T/blank
 	rm $T/blank
-	${CXX} -o $T/out $^ ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting
+	${CXX} -o $T/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting
 	./$T/out
 
 tags:
