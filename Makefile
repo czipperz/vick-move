@@ -31,10 +31,10 @@ clean:
 	[ ! -d ${TO} ] || rm -R ${TO}
 
 $T/blank:
-	touch $T/blank
+	@touch $T/blank
 
 test: ${files} ${testfiles} $T/blank
-	rm $T/blank
+	@rm $T/blank
 	${CXX} -o ${TO}/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting ../../testout/test_main.o
 	./${TO}/out
 
