@@ -31,6 +31,7 @@ clean:
 	[ ! -d ${TO} ] || rm -R ${TO}
 
 $T/blank:
+	@mkdir -p $T
 	@touch $T/blank
 
 test: ${files} ${testfiles} $T/blank
