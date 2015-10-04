@@ -170,14 +170,20 @@ void mvfw(contents& contents, boost::optional<int> op) {
     if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
     int num = op ? op.get() : 1;
     if(num == 0 || num == -0) return;
-    if(num < 0) return mvbw(contents, -op.get());
-    //if deliminator then move forward until not deliminator then move over whitespace
-    //else move foward until (whitespace -> move till not whitespace) or (deliminator -> stop)
-    #define boundsCheck if(contents.y >= contents.cont.size() || \
-                           (contents.y == contents.cont.size() - 1 &&   \
-                            contents.x >= contents.cont[contents.y].size())) return;
+    //if whitespace move forward until not whitespace
+    //else if deliminator then move forward until not deliminator then move over whitespace
+    //else move foward until deliminator or whitespace
+    #define boundsCheck if(contents.y >= contents.cont.size() \
+                           || (contents.y == contents.cont.size() - 1 &&   \
+                               contents.x >= contents.cont[contents.y].size()) \
+                           || (contents.x == 0 && !isWhitespace(ch))) return;
     #define ch contents.cont[contents.y][contents.x]
-    if(isDeliminator(ch)) {
+    if(isWhitespace(ch)) {
+        do {
+            mvf(contents);
+            boundsCheck;
+        } while(isWhitespace(ch));
+    } else if(isDeliminator(ch)) {
         do {
             mvf(contents);
             boundsCheck;
@@ -187,32 +193,59 @@ void mvfw(contents& contents, boost::optional<int> op) {
             boundsCheck;
         }
     } else {
-        while(!isDeliminator(ch) and !isWhitespace(ch)) {
+        do {
+            mvf(contents);
+            boundsCheck;
+        } while(!isDeliminator(ch) && !isWhitespace(ch));
+        while(isWhitespace(ch)) {
             mvf(contents);
             boundsCheck;
         }
-        if(isWhitespace(ch)) {
-            while(isWhitespace(ch)) {
-                mvf(contents);
-                boundsCheck;
-            }
-        } else {
-            while(isDeliminator(ch)) {
-                mvf(contents);
-                boundsCheck;
-            }
-        }
     }
+    if(num > 1) mvfw(contents,num - 1);
     #undef boundsCheck
-    #undef ch
-    if(num > 0) mvfw(contents,num - 1);
 }
 void mvfeow(contents& contents, boost::optional<int> op) {
+    if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
+    int num = op ? op.get() : 1;
+    if(num == 0 || num == -0) return;
     //move at least one forward
-    //move over non deliminators
-    //move over deliminators
+    //move over whitespace
+    //if delimitor then move until not delimitor
+    //else move until delimitor or whitespace
+    //move back one
+    #define boundsCheck if(contents.y >= contents.cont.size()           \
+                           || (contents.y == contents.cont.size() - 1 && \
+                               contents.x >= contents.cont[contents.y].size()) \
+                           || (contents.x == 0 && !isWhitespace(ch))) { \
+            mvb(contents);                                              \
+            return;                                                     \
+        }
+    mvf(contents);
+    while(isWhitespace(ch)) {
+        mvf(contents);
+        boundsCheck;
+    }
+    if(isDeliminator(ch)) {
+        do {
+            mvf(contents);
+            boundsCheck;
+        } while(isDeliminator(ch));
+        mvb(contents);
+    } else {
+        do {
+            mvf(contents);
+            boundsCheck;
+        } while(!isDeliminator(ch) && !isWhitespace(ch));
+        mvb(contents);
+    }
+    if(num > 1) mvfeow(contents,num - 1);
+    #undef boundsCheck
 }
 void mvbw(contents& contents, boost::optional<int> op) {
+    if(op && op.get() < 0) return mvfw(contents, op.get() * -1);
+    int num = op ? op.get() : 1;
+    if(num == 0 || num == -0) return;
     //move back one then
     //if delimitor then move back until no delimitor
     //else if whitespace then move back until not whitespace then
@@ -220,6 +253,30 @@ void mvbw(contents& contents, boost::optional<int> op) {
     //else /*word char*/ move back until not word char or
     //   whitespace
     //move forward one
+    #define boundsCheck if(contents.y < 0 \
+                           || (contents.y == 0 && contents.x == 0)      \
+                           || (contents.x == 0 && !isWhitespace(ch))) return;
+    mvb(contents);
+    while(isWhitespace(ch)) {
+        mvb(contents);
+        boundsCheck;
+    }
+    if(isDeliminator(ch)) {
+        do {
+            mvb(contents);
+            boundsCheck;
+        } while(isDeliminator(ch));
+        mvf(contents);
+    } else {
+        do {
+            mvb(contents);
+            boundsCheck;
+        } while(!isDeliminator(ch) && !isWhitespace(ch));
+        mvf(contents);
+    }
+    if(num > 1) mvbw(contents,num - 1);
+    #undef boundsCheck
+    #undef ch
 }
 
 
