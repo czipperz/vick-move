@@ -236,6 +236,50 @@ TEST_CASE("mvb") {
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
     endwin();
-
 }
 
+TEST_CASE("mvfw") {
+    contents contents;
+    contents.push_back(" a bunch of random text to test it");
+
+    initscr();
+    mvfw(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 1);
+
+    mvfw(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 3);
+    endwin();
+}
+
+TEST_CASE("mvfeow") {
+    contents contents;
+    contents.push_back(" a bunch of random text to test it");
+
+    initscr();
+    mvfeow(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 1);
+
+    mvfeow(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 7);
+    endwin();
+}
+
+TEST_CASE("mvbw") {
+    contents contents;
+    contents.push_back(" a bunch of random text to test it");
+    contents.x = contents.cont[0].size() - 1;
+
+    initscr();
+    mvbw(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 32);
+
+    mvbw(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 27);
+    endwin();
+}
