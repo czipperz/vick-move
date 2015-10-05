@@ -7,7 +7,18 @@ T=test
 TO=testout
 CXX=clang++
 
-files=$O/move.o      \
+files=$O/mv.o        \
+      $O/mv_text.o   \
+      $O/mvbw.o      \
+      $O/mvbww.o     \
+      $O/mvcol.o     \
+      $O/mvd.o       \
+      $O/mvf_mvb.o   \
+      $O/mvfeow.o    \
+      $O/mvfeoww.o   \
+      $O/mvfw.o      \
+      $O/mvfww.o     \
+      $O/mvline.o    \
 
 testfiles=${TO}/move_tests.o    \
 
