@@ -24,6 +24,8 @@ testfiles=${TO}/move_tests.o    \
 
 all: ${files}
 
+begin:
+
 $O/%.o: $S/%.cc $S/%.hh
 	@mkdir -p $O
 	${CXX} -o $@ -c $< ${CFLAGS}
