@@ -21,7 +21,7 @@
  * \post ``contents.y`` will be between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvline (contents&, boost::optional<int> line);
+void mvline (contents& contents, boost::optional<int> line);
 /*!
  * \brief Moves contents.y and contents.x to the given location and
  * checks they are in the boundaries of the buffer.
@@ -35,7 +35,7 @@ void mvline (contents&, boost::optional<int> line);
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont[contents.y].size() - 1``, inclusive
  */
-void mv     (contents&, unsigned long y, unsigned long x);
+void mv     (contents& contents, unsigned long y, unsigned long x);
 
 /*!
  * \brief Moves contents.x to the given prefix location or prompts
@@ -48,7 +48,7 @@ void mv     (contents&, unsigned long y, unsigned long x);
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvcol  (contents&, boost::optional<int> col);
+void mvcol  (contents& contents, boost::optional<int> col);
 
 /*!
  * \brief Moves contents.x to the first non whitespace character.
@@ -60,7 +60,7 @@ void mvcol  (contents&, boost::optional<int> col);
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont[contents.y].size() - 1``, inclusive
  */
-void mvsot  (contents&, boost::optional<int> unused = boost::none);
+void mvsot  (contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves contents.x to the last character of the line.
@@ -71,7 +71,7 @@ void mvsot  (contents&, boost::optional<int> unused = boost::none);
  *
  * \post ``contents.x == contents.cont[contents.y].size() - 1``
  */
-void mveol  (contents&, boost::optional<int> unused = boost::none);
+void mveol  (contents& contents, boost::optional<int> unused = boost::none);
 /*!
  * \brief Moves contents.x to the firstt character of the line.
  * Ignores the prefix argument.
@@ -81,7 +81,7 @@ void mveol  (contents&, boost::optional<int> unused = boost::none);
  *
  * \post ``contents.x == 0``
  */
-void mvsol  (contents&, boost::optional<int> unused = boost::none);
+void mvsol  (contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves to the very beginning of the buffer
@@ -93,7 +93,7 @@ void mvsol  (contents&, boost::optional<int> unused = boost::none);
  * \post ``contents.x == 0``
  * \post ``contents.y == 0``
  */
-void mvsop  (contents&, boost::optional<int> = boost::none);
+void mvsop  (contents& contents, boost::optional<int> unused = boost::none);
 /*!
  * \brief Moves to the very beginning of the buffer
  * Ignores the prefix argument
@@ -104,7 +104,7 @@ void mvsop  (contents&, boost::optional<int> = boost::none);
  * \post ``contents.x == 0``
  * \post ``contents.y == contents.cont.size() - 1``
  */
-void mveop  (contents&, boost::optional<int> = boost::none);
+void mveop  (contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves down a given number of lines or one.
@@ -117,7 +117,7 @@ void mveop  (contents&, boost::optional<int> = boost::none);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvd    (contents&, boost::optional<int> times = 1);
+void mvd    (contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves up a given number of lines or one.
  *
@@ -129,7 +129,7 @@ void mvd    (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvu    (contents&, boost::optional<int> times = 1);
+void mvu    (contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of whitespace delineated words,
@@ -144,7 +144,7 @@ void mvu    (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvfww  (contents&, boost::optional<int> times = 1);
+void mvfww  (contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves forward to the end of a given number of delineated
  * whitespace words, or one.
@@ -158,7 +158,7 @@ void mvfww  (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvfeoww(contents&, boost::optional<int> times = 1);
+void mvfeoww(contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves backward a given number of delineated whitespace
  * words, or one.
@@ -172,7 +172,7 @@ void mvfeoww(contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvbww  (contents&, boost::optional<int> times = 1);
+void mvbww  (contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of words, or one.
@@ -185,7 +185,7 @@ void mvbww  (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvfw   (contents&, boost::optional<int> times = 1);
+void mvfw   (contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves forward to the end of a given number of words, or one.
  *
@@ -197,7 +197,7 @@ void mvfw   (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvfeow (contents&, boost::optional<int> times = 1);
+void mvfeow (contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves backward a given number of words, or one.
  *
@@ -209,7 +209,7 @@ void mvfeow (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvbw   (contents&, boost::optional<int> times = 1);
+void mvbw   (contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of characters, or one.
@@ -222,7 +222,7 @@ void mvbw   (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvf    (contents&, boost::optional<int> times = 1);
+void mvf    (contents& contents, boost::optional<int> times = 1);
 /*!
  * \brief Moves backward a given number of characters, or one.
  *
@@ -234,6 +234,6 @@ void mvf    (contents&, boost::optional<int> times = 1);
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-void mvb    (contents&, boost::optional<int> times = 1);
+void mvb    (contents& contents, boost::optional<int> times = 1);
 
 #endif
