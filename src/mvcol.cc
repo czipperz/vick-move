@@ -11,8 +11,8 @@ void mvcol(contents& contents, boost::optional<int> col) {
             contents.x = col.get();
             contents.waiting_for_desired = false;
         } else {
-            show_message((std::string("Can't move to column: ")
-                          + std::to_string(col.get())).c_str());
+            show_message(std::string("Can't move to column: ")
+                         + std::to_string(col.get()));
         }
     } else {
         while(true) {
