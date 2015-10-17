@@ -1,13 +1,13 @@
 #include "move.hh"
 #include "move_word_p.hh"
 
-void mvfww(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvfww(contents& contents, boost::optional<int> op) {
     if(op && op.get() < 0) return mvbww(contents, op.get() * -1);
     int num = op ? op.get() : 1;
-    if(num == 0 || num == -0) return;
+    if(num == 0 || num == -0) return boost::none;
     #define boundsCheck if((contents.y >= contents.cont.size()) or      \
                            (contents.y == contents.cont.size() - 1 and  \
-                            contents.x >= contents.cont[contents.y].size())) return;
+                            contents.x >= contents.cont[contents.y].size())) return boost::none;
     #define ch contents.cont[contents.y][contents.x]
     auto y_ = contents.y;
     mvf(contents);
@@ -22,6 +22,7 @@ void mvfww(contents& contents, boost::optional<int> op) {
         mvf(contents);
         boundsCheck;
     }
+    return boost::none;
     #undef boundsCheck
     #undef ch
 }

@@ -4,7 +4,7 @@
 #include "../../../src/prompt.hh"
 #include "../../../src/show_message.hh"
 
-void mvcol(contents& contents, boost::optional<int> col) {
+boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::optional<int> col) {
     if(col) {
         unsigned int len = contents.cont[contents.y].length();
         if(len >= col.get()) {
@@ -20,10 +20,11 @@ void mvcol(contents& contents, boost::optional<int> col) {
             try {
                 int res = std::stoi(str);
                 mvcol(contents, res);
-                return;
+                return boost::none;
             } catch(std::invalid_argument) {
                 continue;
             }
         }
     }
+    return boost::none;
 }

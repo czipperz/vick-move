@@ -3,7 +3,7 @@
 inline static unsigned int fixLen(unsigned int len) {
     return len ? len : 1;
 }
-void mvf(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvf(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
     long newx = contents.x + times;
     try {
@@ -16,10 +16,11 @@ void mvf(contents& contents, boost::optional<int> op) {
     if((long) contents.x < 0) contents.x = 0;
     else                      contents.x = newx;
     contents.waiting_for_desired = false;
+    return boost::none;
 }
-void mvb(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvb(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
-    if(contents.y == 0 && contents.x == 0) return;
+    if(contents.y == 0 && contents.x == 0) return boost::none;
     long newx = contents.x - times;
     try {
         while(newx < 0) {
@@ -30,4 +31,5 @@ void mvb(contents& contents, boost::optional<int> op) {
     if(newx < 0) contents.x = 0;
     else         contents.x = newx;
     contents.waiting_for_desired = false;
+    return boost::none;
 }

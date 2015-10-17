@@ -3,7 +3,7 @@
 #include "move.hh"
 #include "../../../src/contents.hh"
 
-void mvsot(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvsot(contents& contents, boost::optional<int> op) {
     mvsol(contents, op);
     const std::string& str = contents.cont[contents.y];
     for(unsigned int i = 0; i < str.length(); i++) {
@@ -11,4 +11,5 @@ void mvsot(contents& contents, boost::optional<int> op) {
             mvf(contents, op);
         else break;
     }
+    return boost::none;
 }

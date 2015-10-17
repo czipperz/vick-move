@@ -1,10 +1,10 @@
 #include "move.hh"
 #include "move_word_p.hh"
 
-void mvfeow(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvfeow(contents& contents, boost::optional<int> op) {
     if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
     int num = op ? op.get() : 1;
-    if(num == 0 || num == -0) return;
+    if(num == 0 || num == -0) return boost::none;
     //move at least one forward
     //move over whitespace
     //if delimitor then move until not delimitor
@@ -17,7 +17,7 @@ void mvfeow(contents& contents, boost::optional<int> op) {
           (contents.x == 0 && !isWhitespace(ch) &&                   \
            contents.cont[contents.y].size() != 0)) {                 \
         mvb(contents);                                               \
-        return;                                                      \
+        return boost::none;                                          \
       }
     #define ch contents.cont[contents.y][contents.x]
     mvf(contents);
@@ -39,6 +39,7 @@ void mvfeow(contents& contents, boost::optional<int> op) {
         mvb(contents);
     }
     if(num > 1) mvfeow(contents,num - 1);
+    return boost::none;
     #undef boundsCheck
     #undef ch
 }

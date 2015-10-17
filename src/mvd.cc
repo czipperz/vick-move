@@ -4,11 +4,11 @@
 #include "../../../src/show_message.hh"
 #include "../../../src/visual.hh"
 
-void mvd(contents& contents, boost::optional<int> op) {
+boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
     if(long(contents.y + times) < 0 || contents.y + times >= contents.cont.size()) {
         show_message("Can't move to that location (start/end of buffer)");
-        return;
+        return boost::none;
     }
     int vis = to_visual(contents.cont[contents.y],contents.x);
     contents.y += times;
@@ -47,8 +47,9 @@ void mvd(contents& contents, boost::optional<int> op) {
         }
     }
     contents.x = (long) contents.x >= 0 ? contents.x : 0;
+    return boost::none;
 }
 
-void mvu(contents& contents, boost::optional<int> op) {
-    mvd(contents, op ? -op.get() : -1);
+boost::optional< std::shared_ptr<change> > mvu(contents& contents, boost::optional<int> op) {
+    return mvd(contents, op ? -op.get() : -1);
 }
