@@ -2,10 +2,10 @@
 #include <ncurses.h>
 #include <boost/optional.hpp>
 
-#include "move.hh"
-#include "configuration.hh"
-#include "visual.hh"
-#include "catch.hpp"
+#include "../src/move.hh"
+#include "../../../src/configuration.hh"
+#include "../../../src/visual.hh"
+#include "../../../test/catch.hpp"
 
 TEST_CASE("mvline") {
     contents contents;
