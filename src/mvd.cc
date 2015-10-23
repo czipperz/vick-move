@@ -10,14 +10,14 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
         show_message("Can't move to that location (start/end of buffer)");
         return boost::none;
     }
-    int vis = to_visual(contents.cont[contents.y],contents.x);
+    int vis = to_visual(contents.cont[contents.y], contents.x);
     contents.y += times;
-    unsigned int len = contents.cont[contents.y].length();
+    size_t len = contents.cont[contents.y].length();
     if(contents.waiting_for_desired) {
-        if((int)contents.x < 0) {
+        if((long)contents.x < 0) {
             contents.x = len - 1;
-            unsigned int vis = from_visual(contents.cont[contents.y],
-                                           contents.desired_x);
+            auto vis = from_visual(contents.cont[contents.y],
+                                   contents.desired_x);
             if(vis < contents.x) {
                 contents.x = vis;
                 contents.waiting_for_desired = false;
