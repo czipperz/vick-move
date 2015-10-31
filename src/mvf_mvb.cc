@@ -18,7 +18,7 @@ boost::optional< std::shared_ptr<change> > mvf(contents& contents, boost::option
             newx -= fixLen(contents.cont[contents.y].length());
             contents.y++;
         }
-    } catch(...) { }
+    } catch(const std::out_of_range&) { }
     if(contents.y >= contents.cont.size()) contents.y = contents.cont.size() - 1;
     contents.x = static_cast<move_ts>(contents.x) < 0 ? 0 : newx;
     contents.waiting_for_desired = false;
@@ -36,7 +36,7 @@ boost::optional< std::shared_ptr<change> > mvb(contents& contents, boost::option
             contents.y--;
             newx += fixLen(contents.cont.at(contents.y).length());
         }
-    } catch(...) { }
+    } catch(const std::out_of_range&) {}
     if(newx < 0) contents.x = 0;
     else         contents.x = newx;
     contents.waiting_for_desired = false;
