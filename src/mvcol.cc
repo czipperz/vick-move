@@ -7,7 +7,7 @@
 boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::optional<int> col) {
     if(col) {
         unsigned int len = contents.cont[contents.y].length();
-        if(len >= col.get()) {
+        if(len >= static_cast<decltype(len)>(col.get())) {
             contents.x = col.get();
             contents.waiting_for_desired = false;
         } else {
