@@ -15,7 +15,7 @@ boost::optional< std::shared_ptr<change> > mvline(contents& contents, boost::opt
             return boost::none;
         }
         contents.y = cont;
-        if(cont >= contents.cont.size()) {
+        if(static_cast<decltype(contents.cont.size())>(cont) >= contents.cont.size()) {
             contents.y = contents.cont.size() - 1;
             show_message("Can't move past end of buffer!");
         }

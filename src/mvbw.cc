@@ -12,7 +12,7 @@ boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optio
     //else /*word char*/ move back until not word char or
     //   whitespace
     //move forward one
-    #define boundsCheck if(((long) contents.y < 0) or                   \
+    #define boundsCheck if((static_cast<move_ts>(contents.y) < 0) or    \
                            (contents.y == 0 and contents.x == 0) or     \
                            (contents.x == 0 and not isWhitespace(ch))) { \
             if(contents.x == contents.cont[contents.y].size() - 1)      \
@@ -28,7 +28,7 @@ boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optio
     if(isDeliminator(ch)) {
         do {
             mvb(contents);
-            if(((long) contents.y < 0) or
+            if((static_cast<move_ts>(contents.y) < 0) or
                (contents.y == 0 and contents.x == 0) or
                (contents.x == 0 and not isWhitespace(ch))) {
                 mvf(contents);
