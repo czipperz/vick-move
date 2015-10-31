@@ -12,7 +12,7 @@ boost::optional< std::shared_ptr<change> > mvf(contents& contents, boost::option
         return boost::none;
     }
     int times = op ? op.get() : 1;
-    long newx = contents.x + times;
+    move_ts newx = contents.x + times;
     try {
         while(fixLen(contents.cont.at(contents.y).length()) <= newx) {
             newx -= fixLen(contents.cont[contents.y].length());
