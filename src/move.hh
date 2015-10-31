@@ -35,7 +35,7 @@ boost::optional < std::shared_ptr<change> > mvline(contents& contents, boost::op
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont[contents.y].size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mv(contents& contents, unsigned long y, unsigned long x);
+boost::optional < std::shared_ptr<change> > mv(contents& contents, move_t y, move_t x);
 
 /*!
  * \brief Moves contents.x to the given prefix location or prompts

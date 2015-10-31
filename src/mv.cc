@@ -2,7 +2,7 @@
 
 #include "../../../src/contents.hh"
 
-boost::optional< std::shared_ptr<change> > mv(contents& contents, unsigned long y, unsigned long x) {
+boost::optional< std::shared_ptr<change> > mv(contents& contents, move_t y, move_t x) {
     contents.y = y;
     contents.x = x;
     if((long) contents.y < 0) contents.y = 0;
