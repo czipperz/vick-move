@@ -1,6 +1,7 @@
 #include "move.hh"
 
-inline static unsigned int fixLen(unsigned int len) {
+template<class T>
+inline static T fixLen(T len) {
     return len ? len : 1;
 }
 boost::optional< std::shared_ptr<change> > mvf(contents& contents, boost::optional<int> op) {
