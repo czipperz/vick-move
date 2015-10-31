@@ -20,8 +20,7 @@ boost::optional< std::shared_ptr<change> > mvf(contents& contents, boost::option
         }
     } catch(...) { }
     if(contents.y >= contents.cont.size()) contents.y = contents.cont.size() - 1;
-    if((long) contents.x < 0) contents.x = 0;
-    else                      contents.x = newx;
+    contents.x = static_cast<move_ts>(contents.x) < 0 ? 0 : newx;
     contents.waiting_for_desired = false;
     return boost::none;
 }
