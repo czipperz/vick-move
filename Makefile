@@ -43,11 +43,8 @@ clean:
 	[ -z "`find -name '*~'`" ] || rm `find -name '*~'`
 	[ ! -d ${TO} ] || rm -R ${TO}
 
-$T/blank:
-	@mkdir -p $T
-	@touch $T/blank
-
-test: ${files} ${testfiles} $T/blank
-	@rm $T/blank
+test: ${files} ${testfiles}
 	${CXX} -o ${TO}/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting ../../testout/test_main.o
 	./${TO}/out
+
+.PHONY: all begin clean test
