@@ -46,7 +46,9 @@ clean:
 	[ ! -d ${TO} ] || rm -R ${TO}
 
 test: ${files} ${testfiles}
-	${CXX} -o ${TO}/out ${files} ${testfiles} ${CFLAGS} ${LDFLAGS} ../../src/configuration.cc -Dtesting ../../testout/test_main.o
+	@mkdir -p ${TO}
+	${CXX} -o ${TO}/out $^ ${CFLAGS} ${LDFLAGS} ${LDLIBS} \
+            ../../src/configuration.cc -Dtesting
 	./${TO}/out
 
 .PHONY: all begin clean test
