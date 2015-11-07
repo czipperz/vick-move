@@ -8,10 +8,10 @@ boost::optional< std::shared_ptr<change> > mvfw(contents& contents, boost::optio
     //if whitespace move forward until not whitespace
     //else if deliminator then move forward until not deliminator then move over whitespace
     //else move foward until deliminator or whitespace
-    #define boundsCheck if(contents.cont[contents.y].size() == 0) {}    \
+#define boundsCheck if(contents.cont[contents.y].size() == 0 and contents.cont.size() - 1 != contents.y) {} \
         else if((contents.y >= contents.cont.size()) or                 \
                 (contents.y == contents.cont.size() - 1 and             \
-                 contents.x >= contents.cont[contents.y].size()) or     \
+                 contents.x >= contents.cont[contents.y].size() - 1) or     \
                 (contents.x == 0 and not isWhitespace(ch))) return boost::none;
     #define ch contents.cont[contents.y][contents.x]
     if(isWhitespace(ch)) {
