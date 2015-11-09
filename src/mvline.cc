@@ -20,10 +20,11 @@ boost::optional< std::shared_ptr<change> > mvline(contents& contents, boost::opt
             show_message("Can't move past end of buffer!");
         }
     } else {
-        std::string str = prompt("Goto line: ");
+        boost::optional<std::string> str = prompt("Goto line: ");
         while(true) {
+            if (!str) return boost::none;
             try {
-                return mvline(contents, std::stoi(str));
+                return mvline(contents, std::stoi(*str));
             } catch(const std::invalid_argument&) {}
             str = prompt("Goto line (last answer not an int): ");
         }

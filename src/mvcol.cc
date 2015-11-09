@@ -15,10 +15,11 @@ boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::opti
                          + std::to_string(col.get()));
         }
     } else {
-        std::string str = prompt("Goto column: ");
+        boost::optional<std::string> str = prompt("Goto column: ");
         while(true) {
+            if (!str) return boost::none;
             try {
-                return mvcol(contents, std::stoi(str));
+                return mvcol(contents, std::stoi(*str));
             } catch(const std::invalid_argument&) {}
             str = prompt("Goto column (last answer not an int): ");
         }
