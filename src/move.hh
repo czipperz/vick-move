@@ -5,6 +5,9 @@
 #include <vector>
 #include "../../../src/file_contents.hh"
 
+namespace vick {
+namespace move {
+
 /*!
  * \file move.hh
  * \brief Basic movement functionality is defined here
@@ -235,5 +238,8 @@ boost::optional < std::shared_ptr<change> > mvf(contents& contents, boost::optio
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvb(contents& contents, boost::optional<int> times = 1);
+
+}
+}
 
 #endif

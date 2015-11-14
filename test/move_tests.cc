@@ -7,6 +7,9 @@
 #include "../../../src/visual.hh"
 #include "../../../test/catch.hpp"
 
+using namespace vick;
+using namespace vick::move;
+
 TEST_CASE("mvline") {
     contents contents;
     contents.x = 1; // make sure set x to 0

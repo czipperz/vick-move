@@ -1,6 +1,9 @@
 #include "move.hh"
 #include "move_word_p.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mvfw(contents& contents, boost::optional<int> op) {
     if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
     int num = op ? op.get() : 1;
@@ -42,4 +45,7 @@ boost::optional< std::shared_ptr<change> > mvfw(contents& contents, boost::optio
     return boost::none;
     #undef boundsCheck
     #undef ch
+}
+
+}
 }

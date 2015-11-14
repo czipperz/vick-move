@@ -4,6 +4,9 @@
 #include "../../../src/prompt.hh"
 #include "../../../src/show_message.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::optional<int> col) {
     if(col) {
         size_t len = contents.cont[contents.y].length();
@@ -25,4 +28,7 @@ boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::opti
         }
     }
     return boost::none;
+}
+
+}
 }

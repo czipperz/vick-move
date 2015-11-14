@@ -3,6 +3,9 @@
 #include "move.hh"
 #include "../../../src/contents.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mvsot(contents& contents, boost::optional<int>) {
     contents.x = 0;
     for(auto x : contents.cont[contents.y]) {
@@ -10,4 +13,7 @@ boost::optional< std::shared_ptr<change> > mvsot(contents& contents, boost::opti
         else break;
     }
     return boost::none;
+}
+
+}
 }

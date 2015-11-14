@@ -5,6 +5,9 @@
 #include "../../../src/show_message.hh"
 #include "../../../src/prompt.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mvline(contents& contents, boost::optional<int> line) {
     if(line) {
         contents.x = 0;
@@ -50,4 +53,7 @@ boost::optional< std::shared_ptr<change> > mveop(contents& contents, boost::opti
     contents.x = 0;
     contents.waiting_for_desired = false;
     return boost::none;
+}
+
+}
 }

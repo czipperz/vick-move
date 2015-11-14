@@ -4,6 +4,9 @@
 #include "../../../src/show_message.hh"
 #include "../../../src/visual.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
     if (static_cast<move_ts>(contents.y + times) < 0 ||
@@ -53,4 +56,7 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
 
 boost::optional< std::shared_ptr<change> > mvu(contents& contents, boost::optional<int> op) {
     return mvd(contents, op ? -op.get() : -1);
+}
+
+}
 }

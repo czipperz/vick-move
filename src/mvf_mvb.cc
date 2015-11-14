@@ -1,6 +1,9 @@
 #include "../../../src/show_message.hh"
 #include "move.hh"
 
+namespace vick {
+namespace move {
+
 template<class T>
 inline static T fixLen(T len) {
     return len ? len : 1;
@@ -42,4 +45,7 @@ boost::optional< std::shared_ptr<change> > mvb(contents& contents, boost::option
     else         contents.x = newx;
     contents.waiting_for_desired = false;
     return boost::none;
+}
+
+}
 }

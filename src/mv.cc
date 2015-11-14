@@ -2,6 +2,9 @@
 
 #include "../../../src/contents.hh"
 
+namespace vick {
+namespace move {
+
 boost::optional< std::shared_ptr<change> > mv(contents& contents, move_t y, move_t x) {
     contents.y = y;
     contents.x = x;
@@ -12,4 +15,7 @@ boost::optional< std::shared_ptr<change> > mv(contents& contents, move_t y, move
     if(contents.x >= contents.cont[contents.y].size())
         contents.x = contents.cont[contents.y].size() - 1;
     return boost::none;
+}
+
+}
 }
