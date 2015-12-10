@@ -20,6 +20,7 @@ files=$O/mv.o        \
       $O/mvfw.o      \
       $O/mvfww.o     \
       $O/mvline.o    \
+      $O/mvmatch.o   \
 
 testfiles=${TO}/move_tests.o    \
 

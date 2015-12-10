@@ -41,6 +41,23 @@ boost::optional < std::shared_ptr<change> > mvline(contents& contents, boost::op
 void mv(contents& contents, move_t y, move_t x);
 
 /*!
+ * \brief Moves the cursor forward until it finds a character in
+ * MATCHES, then finds the corresponding matching character and moves
+ * to it.
+ *
+ * For example,
+ *
+ * \code{.cpp}
+ * MATCHES = "(){}[]";
+ * contents c;
+ * c.cont.push_back("there is (some [stuff {in}] parens) then more");
+ * mvmatch(c);
+ * assert(c.x == 34);
+ * \endcode
+ */
+boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::optional<int> = boost::none);
+
+/*!
  * \brief Moves contents.x to the given prefix location or prompts
  * user for a column to move to if no prefix is given
  *
