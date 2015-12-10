@@ -23,6 +23,7 @@ boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optio
             return boost::none;                                          \
         }
     #define ch contents.cont[contents.y][contents.x]
+    if(contents.y == 0 and contents.x == 0) return boost::none;
     mvb(contents);
     while(isWhitespace(ch)) {
         mvb(contents);
