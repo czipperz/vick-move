@@ -42,7 +42,7 @@ boost::optional< std::shared_ptr<change> > mveol(contents& contents, boost::opti
                      : contents.cont[contents.y].length() - 1);
 }
 boost::optional< std::shared_ptr<change> > mvsol(contents& contents, boost::optional<int>) {
-    return mvcol(contents,0);
+    return mvcol(contents, 0);
 }
 
 boost::optional< std::shared_ptr<change> > mvsop(contents& contents, boost::optional<int>) {
