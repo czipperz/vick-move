@@ -7,7 +7,7 @@ namespace move {
 boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optional<int> op) {
     if(op and op.get() < 0) return mvfw(contents, -op.get());
     int num = op ? op.get() : 1;
-    if(num == 0 || num == -0) return boost::none;
+    if(num == 0) return boost::none;
     //move back one then
     //if delimitor then move back until no delimitor
     //else if whitespace then move back until not whitespace then
