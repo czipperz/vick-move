@@ -5,7 +5,7 @@ namespace vick {
 namespace move {
 
 boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optional<int> op) {
-    if(op && op.get() < 0) return mvfw(contents, op.get() * -1);
+    if(op and op.get() < 0) return mvfw(contents, op.get() * -1);
     int num = op ? op.get() : 1;
     if(num == 0 || num == -0) return boost::none;
     //move back one then
