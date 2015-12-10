@@ -36,7 +36,10 @@ boost::optional< std::shared_ptr<change> > mvline(contents& contents, boost::opt
 }
 
 boost::optional< std::shared_ptr<change> > mveol(contents& contents, boost::optional<int>) {
-    return mvcol(contents,contents.cont[contents.y].length() - 1);
+    return mvcol(contents,
+                 contents.cont[contents.y].length() == 0
+                     ? 0
+                     : contents.cont[contents.y].length() - 1);
 }
 boost::optional< std::shared_ptr<change> > mvsol(contents& contents, boost::optional<int>) {
     return mvcol(contents,0);
