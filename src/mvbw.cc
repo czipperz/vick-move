@@ -15,37 +15,32 @@ boost::optional< std::shared_ptr<change> > mvbw(contents& contents, boost::optio
     //else /*word char*/ move back until not word char or
     //   whitespace
     //move forward one
-    #define boundsCheck if((static_cast<move_ts>(contents.y) < 0) or     \
-                           (contents.y == 0 and contents.x == 0) or      \
-                           (contents.x == 0 and not isWhitespace(ch))) { \
-            if(contents.x == contents.cont[contents.y].size() - 1)       \
+    #define boundsCheck(boo) if((contents.y == 0 and contents.x == 0) or    \
+                                (contents.x == 0 and not isWhitespace(ch)) or \
+                                (contents.x == 0 and contents.cont[contents.y].size() == 0)) { \
+            if(boo or contents.x == contents.cont[contents.y].size() - 1) \
                 mvf(contents);                                           \
             return boost::none;                                          \
         }
     #define ch contents.cont[contents.y][contents.x]
     if(contents.y == 0 and contents.x == 0) return boost::none;
     mvb(contents);
-    boundsCheck;
+    boundsCheck(false);
     while(isWhitespace(ch)) {
         mvb(contents);
-        boundsCheck;
+        boundsCheck(false);
     }
     if(isDeliminator(ch)) {
         do {
             mvb(contents);
-            if((static_cast<move_ts>(contents.y) < 0) or
-               (contents.y == 0 and contents.x == 0) or
-               (contents.x == 0 and not isWhitespace(ch))) {
-                mvf(contents);
-                return boost::none;
-            }
+            boundsCheck(true);
         } while(isDeliminator(ch));
         mvf(contents);
     } else {
         if(contents.x == 0 and contents.cont[contents.y].size()) return boost::none;
         do {
             mvb(contents);
-            boundsCheck;
+            boundsCheck(false);
         } while(!isDeliminator(ch) && !isWhitespace(ch));
         mvf(contents);
     }
