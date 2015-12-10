@@ -25,6 +25,7 @@ namespace move {
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvline(contents& contents, boost::optional<int> line);
+
 /*!
  * \brief Moves contents.y and contents.x to the given location and
  * checks they are in the boundaries of the buffer.
@@ -92,6 +93,7 @@ boost::optional < std::shared_ptr<change> > mvsot(contents& contents, boost::opt
  * \post ``contents.x == contents.cont[contents.y].size() - 1``
  */
 boost::optional < std::shared_ptr<change> > mveol(contents& contents, boost::optional<int> unused = boost::none);
+
 /*!
  * \brief Moves contents.x to the firstt character of the line.
  * Ignores the prefix argument.
@@ -114,6 +116,7 @@ boost::optional < std::shared_ptr<change> > mvsol(contents& contents, boost::opt
  * \post ``contents.y == 0``
  */
 boost::optional < std::shared_ptr<change> > mvsop(contents& contents, boost::optional<int> unused = boost::none);
+
 /*!
  * \brief Moves to the very beginning of the buffer
  * Ignores the prefix argument
@@ -138,6 +141,7 @@ boost::optional < std::shared_ptr<change> > mveop(contents& contents, boost::opt
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves up a given number of lines or one.
  *
@@ -165,6 +169,7 @@ boost::optional < std::shared_ptr<change> > mvu(contents& contents, boost::optio
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvfww(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves forward to the end of a given number of delineated
  * whitespace words, or one.
@@ -179,6 +184,7 @@ boost::optional < std::shared_ptr<change> > mvfww(contents& contents, boost::opt
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvfeoww(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves backward a given number of delineated whitespace
  * words, or one.
@@ -206,6 +212,7 @@ boost::optional < std::shared_ptr<change> > mvbww(contents& contents, boost::opt
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvfw(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves forward to the end of a given number of words, or one.
  *
@@ -218,6 +225,7 @@ boost::optional < std::shared_ptr<change> > mvfw(contents& contents, boost::opti
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvfeow(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves backward a given number of words, or one.
  *
@@ -243,6 +251,7 @@ boost::optional < std::shared_ptr<change> > mvbw(contents& contents, boost::opti
  * ``contents.cont.size() - 1``, inclusive
  */
 boost::optional < std::shared_ptr<change> > mvf(contents& contents, boost::optional<int> times = 1);
+
 /*!
  * \brief Moves backward a given number of characters, or one.
  *
