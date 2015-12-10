@@ -5,7 +5,7 @@
 namespace vick {
 namespace move {
 
-boost::optional< std::shared_ptr<change> > mv(contents& contents, move_t y, move_t x) {
+void mv(contents& contents, move_t y, move_t x) {
     contents.y = y;
     contents.x = x;
     if(static_cast<move_ts>(contents.y) < 0) contents.y = 0;
