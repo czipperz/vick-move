@@ -25,34 +25,60 @@ boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::opt
 
     size_t index_match = MATCHES.find_first_of(contents.cont[y][x_fin]);
     bool forward = index_match % 2 == 0;
-    if(forward) index_match++;
-    else index_match--;
-    char match = MATCHES[index_match];
+    char match = MATCHES[index_match + (forward ? 1 : -1)];
+    char skipme = MATCHES[index_match];
+    std::string both {match,skipme,'\0'};
 
-    size_t x_beg;
+    size_t x_beg = x_fin;
+    int numskipped = 0;
+#define dasif                                                        \
+    if (contents.cont[y][x_beg] == skipme) {                         \
+        numskipped++;                                                \
+    } else if (numskipped) {                                         \
+        numskipped--;                                                \
+    } else {                                                         \
+        goto set;                                                    \
+    }
+#define testnumskipped(expr, direction, check0)                      \
+    while (x_beg != std::string::npos and                            \
+           (not check0 or x_beg != 0)) {                             \
+        dasif;                                                       \
+        x_beg = contents.cont[y].find_##direction##_of(both,         \
+                                                       x_beg expr);  \
+    }                                                                \
+    if (check0 and x_beg == 0) {                                     \
+        dasif;                                                       \
+    }
+#define testforward testnumskipped(+1, first, false)
+#define testbackward testnumskipped(-1, last, true)
 
     if(forward) {
-        x_beg = contents.cont[y].find_first_of(match, x_fin+1);
+        x_beg = contents.cont[y].find_first_of(both, x_beg+1);
+        testforward;
 
         while(x_beg == std::string::npos) {
             if(++y >= contents.cont.size()) {
                 show_message(std::string("Can't find any matches in string for ") + match);
                 return boost::none;
             }
-            x_beg = contents.cont[y].find_first_of(MATCHES);
+            x_beg = contents.cont[y].find_first_of(both);
+            testforward;
         }
     } else {
-        x_beg = contents.cont[y].find_last_of(match, x_fin-1);
+        x_beg = contents.cont[y].find_last_of(both, x_beg-1);
+        testbackward;
 
-        while(x_beg == std::string::npos) {
-            if(--y < contents.cont.size()) {
+        while(x_beg == std::string::npos || x_beg == 0) {
+            if(y == 0) {
                 show_message(std::string("Can't find corresponding match for ") + match);
                 return boost::none;
             }
-            x_beg = contents.cont[y].find_last_of(match);
+            x_beg = contents.cont[--y].find_last_of(both);
+            testbackward;
         }
     }
 
+set:
     contents.y = y;
     contents.x = x_beg;
 
