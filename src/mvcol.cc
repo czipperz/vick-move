@@ -8,9 +8,9 @@ namespace vick {
 namespace move {
 
 boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::optional<int> col) {
-    if(col) {
+    if (col) {
         size_t len = contents.cont[contents.y].length();
-        if(len >= static_cast<decltype(len)>(col.get())) {
+        if (len >= static_cast<decltype(len)>(col.get())) {
             contents.x = col.get();
             contents.waiting_for_desired = false;
         } else {
@@ -19,11 +19,11 @@ boost::optional< std::shared_ptr<change> > mvcol(contents& contents, boost::opti
         }
     } else {
         boost::optional<std::string> str = prompt("Goto column: ");
-        while(true) {
-            if (!str) return boost::none;
+        while (true) {
+            if (not str) return boost::none;
             try {
                 return mvcol(contents, std::stoi(*str));
-            } catch(const std::invalid_argument&) {}
+            } catch (const std::invalid_argument&) {}
             str = prompt("Goto column (last answer not an int): ");
         }
     }

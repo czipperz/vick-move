@@ -7,16 +7,17 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::optional<int>) {
-    if(MATCHES.size() % 2 != 0) {
-        show_message("MATCHES variable doesn't have an even number of elements, don't know how to make matches");
+    if (MATCHES.size() % 2 != 0) {
+        show_message("MATCHES variable doesn't have an even number of "
+                     "elements, don't know how to make matches");
         return boost::none;
     }
 
     auto y = contents.y;
     size_t x_fin = contents.cont[y].find_first_of(MATCHES, contents.x);
 
-    while(x_fin == std::string::npos) {
-        if(++y >= contents.cont.size()) {
+    while (x_fin == std::string::npos) {
+        if (++y >= contents.cont.size()) {
             show_message("Can't find any matches in string");
             return boost::none;
         }
@@ -52,12 +53,12 @@ boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::opt
 #define testforward testnumskipped(+1, first, false)
 #define testbackward testnumskipped(-1, last, true)
 
-    if(forward) {
+    if (forward) {
         x_beg = contents.cont[y].find_first_of(both, x_beg+1);
         testforward;
 
-        while(x_beg == std::string::npos) {
-            if(++y >= contents.cont.size()) {
+        while (x_beg == std::string::npos) {
+            if (++y >= contents.cont.size()) {
                 show_message(std::string("Can't find any matches in string for ") + match);
                 return boost::none;
             }
@@ -68,8 +69,8 @@ boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::opt
         x_beg = contents.cont[y].find_last_of(both, x_beg-1);
         testbackward;
 
-        while(x_beg == std::string::npos || x_beg == 0) {
-            if(y == 0) {
+        while (x_beg == std::string::npos or x_beg == 0) {
+            if (y == 0) {
                 show_message(std::string("Can't find corresponding match for ") + match);
                 return boost::none;
             }

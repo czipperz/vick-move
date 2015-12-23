@@ -5,43 +5,43 @@ namespace vick {
 namespace move {
 
 boost::optional< std::shared_ptr<change> > mvfeow(contents& contents, boost::optional<int> op) {
-    if(op && op.get() < 0) return mvbw(contents, op.get() * -1);
+    if (op and op.get() < 0) return mvbw(contents, -op.get());
     int num = op ? op.get() : 1;
-    if(num == 0 || num == -0) return boost::none;
+    if (num == 0) return boost::none;
     //move at least one forward
     //move over whitespace
     //if delimitor then move until not delimitor
     //else move until delimitor or whitespace
     //move back one
-    #define boundsCheck                                              \
-      if ((contents.y >= contents.cont.size()) ||                    \
-          (contents.y == contents.cont.size() - 1 &&                 \
-           contents.x >= contents.cont[contents.y].size()) ||        \
-          (contents.x == 0 && !isWhitespace(ch) &&                   \
-           contents.cont[contents.y].size() != 0)) {                 \
-        mvb(contents);                                               \
-        return boost::none;                                          \
-      }
-    #define ch contents.cont[contents.y][contents.x]
+#define boundsCheck                                                            \
+    if ((contents.y >= contents.cont.size()) or                                \
+        (contents.y == contents.cont.size() - 1 and                            \
+         contents.x >= contents.cont[contents.y].size()) or                    \
+        (contents.x == 0 and not isWhitespace(ch) and                          \
+         contents.cont[contents.y].size() != 0)) {                             \
+        mvb(contents);                                                         \
+        return boost::none;                                                    \
+    }
+#define ch contents.cont[contents.y][contents.x]
     mvf(contents);
-    while(isWhitespace(ch)) {
+    while (isWhitespace(ch)) {
         mvf(contents);
         boundsCheck;
     }
-    if(isDeliminator(ch)) {
+    if (isDeliminator(ch)) {
         do {
             mvf(contents);
             boundsCheck;
-        } while(isDeliminator(ch));
+        } while (isDeliminator(ch));
         mvb(contents);
     } else {
         do {
             mvf(contents);
             boundsCheck;
-        } while(!isDeliminator(ch) && !isWhitespace(ch));
+        } while (not isDeliminator(ch) and not isWhitespace(ch));
         mvb(contents);
     }
-    if(num > 1) mvfeow(contents,num - 1);
+    if (num > 1) mvfeow(contents, num - 1);
     return boost::none;
     #undef boundsCheck
     #undef ch

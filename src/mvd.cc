@@ -9,7 +9,7 @@ namespace move {
 
 boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
-    if (static_cast<move_ts>(contents.y + times) < 0 ||
+    if (static_cast<move_ts>(contents.y + times) < 0 or
         contents.y + times >= contents.cont.size()) {
         show_message("Can't move to that location (start/end of buffer)");
         return boost::none;
@@ -17,20 +17,20 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
     int vis = to_visual(contents.cont[contents.y], contents.x);
     contents.y += times;
     size_t len = contents.cont[contents.y].length();
-    if(contents.waiting_for_desired) {
-        if(static_cast<move_ts>(contents.x) < 0) {
+    if (contents.waiting_for_desired) {
+        if (static_cast<move_ts>(contents.x) < 0) {
             contents.x = len - 1;
             auto vis = from_visual(contents.cont[contents.y],
                                    contents.desired_x);
-            if(static_cast<move_t>(vis) < contents.x) {
+            if (static_cast<move_t>(vis) < contents.x) {
                 contents.x = vis;
                 contents.waiting_for_desired = false;
             }
-        } else if(contents.x >= len) {
+        } else if (contents.x >= len) {
             contents.x = len - 1;
-        } else if((contents.desired_x > contents.x
-                   && contents.desired_x < len)
-                  || contents.desired_x == 0) {
+        } else if ((contents.desired_x > contents.x
+                   and contents.desired_x < len)
+                  or contents.desired_x == 0) {
             // x  desired  len
             contents.x = contents.desired_x;
             contents.waiting_for_desired = false;
@@ -38,14 +38,14 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
             // x  len  desired
             contents.x = len - 1;
         }
-    } else if(len <= contents.x && len > 0) {
+    } else if (len <= contents.x and len > 0) {
         contents.waiting_for_desired = true;
         contents.desired_x = contents.x;
         contents.x = len - 1;
     } else {
         int des = contents.x;
         contents.x = from_visual(contents.cont[contents.y],vis);
-        if(len == 0) {
+        if (len == 0) {
             contents.waiting_for_desired = true;
             contents.desired_x = des;
         }
