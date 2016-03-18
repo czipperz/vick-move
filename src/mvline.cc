@@ -40,9 +40,11 @@ mvline(contents& contents, boost::optional<int> line)
 boost::optional<std::shared_ptr<change> >
 mveol(contents& contents, boost::optional<int>)
 {
-    return mvcol(contents, contents.cont[contents.y].length() == 0
-                               ? 0
-                               : contents.cont[contents.y].length() - 1);
+    if (contents.cont[contents.y].empty())
+        contents.x = 0;
+    else
+        contents.x = contents.cont[contents.y].length() - 1;
+    return boost::none;
 }
 
 boost::optional<std::shared_ptr<change> >
