@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "../../../src/file_contents.hh"
+#include "../../../src/contents.hh"
 
 namespace vick {
 namespace move {
