@@ -25,8 +25,9 @@ mvfww(contents& contents, boost::optional<int> op)
         if (contents.y != y) break;
         boundsCheck;
     }
-    if (contents.cont[contents.y].size()) {}
-    while (isWhitespace(ch)) {
+    while (contents.cont[contents.y].empty() or
+           contents.x >= contents.cont[contents.y].size() or
+           isWhitespace(ch)) {
         mvf(contents);
         boundsCheck;
     }
