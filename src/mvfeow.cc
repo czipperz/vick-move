@@ -4,23 +4,26 @@
 namespace vick {
 namespace move {
 
-boost::optional< std::shared_ptr<change> > mvfeow(contents& contents, boost::optional<int> op) {
-    if (op and op.get() < 0) return mvbw(contents, -op.get());
+boost::optional<std::shared_ptr<change> >
+mvfeow(contents& contents, boost::optional<int> op) {
+    if (op and op.get() < 0)
+        return mvbw(contents, -op.get());
     int num = op ? op.get() : 1;
-    if (num == 0) return boost::none;
-    //move at least one forward
-    //move over whitespace
-    //if delimitor then move until not delimitor
-    //else move until delimitor or whitespace
-    //move back one
-#define boundsCheck                                                            \
-    if ((contents.y >= contents.cont.size()) or                                \
-        (contents.y == contents.cont.size() - 1 and                            \
-         contents.x >= contents.cont[contents.y].size()) or                    \
-        (contents.x == 0 and not isWhitespace(ch) and                          \
-         contents.cont[contents.y].size() != 0)) {                             \
-        mvb(contents);                                                         \
-        return boost::none;                                                    \
+    if (num == 0)
+        return boost::none;
+// move at least one forward
+// move over whitespace
+// if delimitor then move until not delimitor
+// else move until delimitor or whitespace
+// move back one
+#define boundsCheck                                                  \
+    if ((contents.y >= contents.cont.size()) or                      \
+        (contents.y == contents.cont.size() - 1 and                  \
+         contents.x >= contents.cont[contents.y].size()) or          \
+        (contents.x == 0 and not isWhitespace(ch) and                \
+         contents.cont[contents.y].size() != 0)) {                   \
+        mvb(contents);                                               \
+        return boost::none;                                          \
     }
 #define ch contents.cont[contents.y][contents.x]
     mvf(contents);
@@ -41,11 +44,11 @@ boost::optional< std::shared_ptr<change> > mvfeow(contents& contents, boost::opt
         } while (not isDeliminator(ch) and not isWhitespace(ch));
         mvb(contents);
     }
-    if (num > 1) mvfeow(contents, num - 1);
+    if (num > 1)
+        mvfeow(contents, num - 1);
     return boost::none;
-    #undef boundsCheck
-    #undef ch
+#undef boundsCheck
+#undef ch
 }
-
 }
 }

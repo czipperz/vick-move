@@ -9,8 +9,7 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvline(contents& contents, boost::optional<int> line)
-{
+mvline(contents& contents, boost::optional<int> line) {
     if (line) {
         contents.x = 0;
         int cont = line.get();
@@ -20,17 +19,20 @@ mvline(contents& contents, boost::optional<int> line)
             return boost::none;
         }
         contents.y = cont;
-        if (static_cast<decltype(contents.cont.size())>(cont) >= contents.cont.size()) {
+        if (static_cast<decltype(contents.cont.size())>(cont) >=
+            contents.cont.size()) {
             contents.y = contents.cont.size() - 1;
             show_message("Can't move past end of buffer!");
         }
     } else {
         boost::optional<std::string> str = prompt("Goto line: ");
         while (true) {
-            if (not str) return boost::none;
+            if (not str)
+                return boost::none;
             try {
                 return mvline(contents, std::stoi(*str));
-            } catch (const std::invalid_argument&) {}
+            } catch (const std::invalid_argument&) {
+            }
             str = prompt("Goto line (last answer not an int): ");
         }
     }
@@ -38,8 +40,7 @@ mvline(contents& contents, boost::optional<int> line)
 }
 
 boost::optional<std::shared_ptr<change> >
-mveol(contents& contents, boost::optional<int>)
-{
+mveol(contents& contents, boost::optional<int>) {
     if (contents.cont[contents.y].empty())
         contents.x = 0;
     else
@@ -48,14 +49,12 @@ mveol(contents& contents, boost::optional<int>)
 }
 
 boost::optional<std::shared_ptr<change> >
-mvsol(contents& contents, boost::optional<int>)
-{
+mvsol(contents& contents, boost::optional<int>) {
     return mvcol(contents, 0);
 }
 
 boost::optional<std::shared_ptr<change> >
-mvsop(contents& contents, boost::optional<int>)
-{
+mvsop(contents& contents, boost::optional<int>) {
     contents.y = 0;
     contents.x = 0;
     contents.waiting_for_desired = false;
@@ -63,13 +62,11 @@ mvsop(contents& contents, boost::optional<int>)
 }
 
 boost::optional<std::shared_ptr<change> >
-mveop(contents& contents, boost::optional<int>)
-{
+mveop(contents& contents, boost::optional<int>) {
     contents.y = contents.cont.size() - 1;
     contents.x = 0;
     contents.waiting_for_desired = false;
     return boost::none;
 }
-
 }
 }

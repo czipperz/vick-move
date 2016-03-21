@@ -4,17 +4,20 @@
 namespace vick {
 namespace move {
 
-boost::optional< std::shared_ptr<change> > mvbww(contents& contents, boost::optional<int> op) {
-    if (op and op.get() < 0) return mvfww(contents, -op.get());
+boost::optional<std::shared_ptr<change> >
+mvbww(contents& contents, boost::optional<int> op) {
+    if (op and op.get() < 0)
+        return mvfww(contents, -op.get());
     int num = op ? op.get() : 1;
-    if (num == 0 or num == -0) return boost::none;
-#define boundsCheck                                                            \
-    if ((static_cast<move_ts>(contents.y) < 0) or                              \
-        (contents.y == 0 and contents.x <= 0) or                               \
-        (contents.x == 0 and not isWhitespace(ch))) {                          \
-        if (contents.x == contents.cont[contents.y].size() - 1)                \
-            mvf(contents);                                                     \
-        return boost::none;                                                    \
+    if (num == 0 or num == -0)
+        return boost::none;
+#define boundsCheck                                                  \
+    if ((static_cast<move_ts>(contents.y) < 0) or                    \
+        (contents.y == 0 and contents.x <= 0) or                     \
+        (contents.x == 0 and not isWhitespace(ch))) {                \
+        if (contents.x == contents.cont[contents.y].size() - 1)      \
+            mvf(contents);                                           \
+        return boost::none;                                          \
     }
 #define ch contents.cont[contents.y][contents.x]
     mvb(contents);
@@ -31,6 +34,5 @@ boost::optional< std::shared_ptr<change> > mvbww(contents& contents, boost::opti
 #undef boundsCheck
 #undef ch
 }
-
 }
 }

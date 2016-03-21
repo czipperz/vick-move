@@ -18,13 +18,15 @@ namespace move {
  * user for one.
  *
  * \param[in,out] contents The contents object to move on
- * \param[in] line The line to move to.  If none is given, prompts user
+ * \param[in] line The line to move to.  If none is given, prompts
+ * user
  * for one.
  *
  * \post ``contents.y`` will be between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvline(contents& contents, boost::optional<int> line);
+boost::optional<std::shared_ptr<change> >
+mvline(contents& contents, boost::optional<int> line);
 
 /*!
  * \brief Moves contents.y and contents.x to the given location and
@@ -56,7 +58,8 @@ void mv(contents& contents, move_t y, move_t x);
  * assert(c.x == 34);
  * \endcode
  */
-boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::optional<int> = boost::none);
+boost::optional<std::shared_ptr<change> >
+mvmatch(contents& contents, boost::optional<int> = boost::none);
 
 /*!
  * \brief Moves contents.x to the given prefix location or prompts
@@ -69,7 +72,8 @@ boost::optional<std::shared_ptr<change> > mvmatch(contents& contents, boost::opt
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvcol(contents& contents, boost::optional<int> col);
+boost::optional<std::shared_ptr<change> >
+mvcol(contents& contents, boost::optional<int> col);
 
 /*!
  * \brief Moves contents.x to the first non whitespace character.
@@ -81,7 +85,8 @@ boost::optional < std::shared_ptr<change> > mvcol(contents& contents, boost::opt
  * \post ``contents.x`` will be between ``0`` and
  * ``contents.cont[contents.y].size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvsot(contents& contents, boost::optional<int> unused = boost::none);
+boost::optional<std::shared_ptr<change> >
+mvsot(contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves contents.x to the last character of the line.
@@ -92,7 +97,8 @@ boost::optional < std::shared_ptr<change> > mvsot(contents& contents, boost::opt
  *
  * \post ``contents.x == contents.cont[contents.y].size() - 1``
  */
-boost::optional < std::shared_ptr<change> > mveol(contents& contents, boost::optional<int> unused = boost::none);
+boost::optional<std::shared_ptr<change> >
+mveol(contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves contents.x to the firstt character of the line.
@@ -103,7 +109,8 @@ boost::optional < std::shared_ptr<change> > mveol(contents& contents, boost::opt
  *
  * \post ``contents.x == 0``
  */
-boost::optional < std::shared_ptr<change> > mvsol(contents& contents, boost::optional<int> unused = boost::none);
+boost::optional<std::shared_ptr<change> >
+mvsol(contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves to the very beginning of the buffer
@@ -115,7 +122,8 @@ boost::optional < std::shared_ptr<change> > mvsol(contents& contents, boost::opt
  * \post ``contents.x == 0``
  * \post ``contents.y == 0``
  */
-boost::optional < std::shared_ptr<change> > mvsop(contents& contents, boost::optional<int> unused = boost::none);
+boost::optional<std::shared_ptr<change> >
+mvsop(contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves to the very beginning of the buffer
@@ -127,7 +135,8 @@ boost::optional < std::shared_ptr<change> > mvsop(contents& contents, boost::opt
  * \post ``contents.x == 0``
  * \post ``contents.y == contents.cont.size() - 1``
  */
-boost::optional < std::shared_ptr<change> > mveop(contents& contents, boost::optional<int> unused = boost::none);
+boost::optional<std::shared_ptr<change> >
+mveop(contents& contents, boost::optional<int> unused = boost::none);
 
 /*!
  * \brief Moves down a given number of lines or one.
@@ -140,7 +149,8 @@ boost::optional < std::shared_ptr<change> > mveop(contents& contents, boost::opt
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvd(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves up a given number of lines or one.
@@ -153,7 +163,8 @@ boost::optional < std::shared_ptr<change> > mvd(contents& contents, boost::optio
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvu(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvu(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of whitespace delineated words,
@@ -168,7 +179,8 @@ boost::optional < std::shared_ptr<change> > mvu(contents& contents, boost::optio
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvfww(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvfww(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward to the end of a given number of delineated
@@ -183,7 +195,8 @@ boost::optional < std::shared_ptr<change> > mvfww(contents& contents, boost::opt
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvfeoww(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvfeoww(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves backward a given number of delineated whitespace
@@ -198,7 +211,8 @@ boost::optional < std::shared_ptr<change> > mvfeoww(contents& contents, boost::o
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvbww(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvbww(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of words, or one.
@@ -211,7 +225,8 @@ boost::optional < std::shared_ptr<change> > mvbww(contents& contents, boost::opt
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvfw(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvfw(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward to the end of a given number of words, or one.
@@ -224,7 +239,8 @@ boost::optional < std::shared_ptr<change> > mvfw(contents& contents, boost::opti
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvfeow(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvfeow(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves backward a given number of words, or one.
@@ -237,7 +253,8 @@ boost::optional < std::shared_ptr<change> > mvfeow(contents& contents, boost::op
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvbw(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvbw(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves forward a given number of characters, or one.
@@ -250,7 +267,8 @@ boost::optional < std::shared_ptr<change> > mvbw(contents& contents, boost::opti
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvf(contents& contents, boost::optional<int> times = 1);
+boost::optional<std::shared_ptr<change> >
+mvf(contents& contents, boost::optional<int> times = 1);
 
 /*!
  * \brief Moves backward a given number of characters, or one.
@@ -263,8 +281,8 @@ boost::optional < std::shared_ptr<change> > mvf(contents& contents, boost::optio
  * \post ``contents.y`` is between ``0`` and
  * ``contents.cont.size() - 1``, inclusive
  */
-boost::optional < std::shared_ptr<change> > mvb(contents& contents, boost::optional<int> times = 1);
-
+boost::optional<std::shared_ptr<change> >
+mvb(contents& contents, boost::optional<int> times = 1);
 }
 }
 

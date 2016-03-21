@@ -7,11 +7,13 @@
 namespace vick {
 namespace move {
 
-boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::optional<int> op) {
+boost::optional<std::shared_ptr<change> >
+mvd(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
     if (static_cast<move_ts>(contents.y + times) < 0 or
         contents.y + times >= contents.cont.size()) {
-        show_message("Can't move to that location (start/end of buffer)");
+        show_message(
+            "Can't move to that location (start/end of buffer)");
         return boost::none;
     }
     int vis = to_visual(contents.cont[contents.y], contents.x);
@@ -28,9 +30,9 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
             }
         } else if (contents.x >= len) {
             contents.x = len - 1;
-        } else if ((contents.desired_x > contents.x
-                   and contents.desired_x < len)
-                  or contents.desired_x == 0) {
+        } else if ((contents.desired_x > contents.x and
+                    contents.desired_x < len) or
+                   contents.desired_x == 0) {
             // x  desired  len
             contents.x = contents.desired_x;
             contents.waiting_for_desired = false;
@@ -44,19 +46,20 @@ boost::optional< std::shared_ptr<change> > mvd(contents& contents, boost::option
         contents.x = len - 1;
     } else {
         int des = contents.x;
-        contents.x = from_visual(contents.cont[contents.y],vis);
+        contents.x = from_visual(contents.cont[contents.y], vis);
         if (len == 0) {
             contents.waiting_for_desired = true;
             contents.desired_x = des;
         }
     }
-    contents.x = static_cast<move_ts>(contents.x) >= 0 ? contents.x : 0;
+    contents.x =
+        static_cast<move_ts>(contents.x) >= 0 ? contents.x : 0;
     return boost::none;
 }
 
-boost::optional< std::shared_ptr<change> > mvu(contents& contents, boost::optional<int> op) {
+boost::optional<std::shared_ptr<change> >
+mvu(contents& contents, boost::optional<int> op) {
     return mvd(contents, op ? -op.get() : -1);
 }
-
 }
 }
