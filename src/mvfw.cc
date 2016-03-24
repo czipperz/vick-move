@@ -17,7 +17,7 @@ mvfw(contents& contents, boost::optional<int> op) {
 // whitespace
 // else move foward until deliminator or whitespace
 #define boundsCheck                                                  \
-    if (contents.cont[contents.y].size() == 0 and                    \
+    if (contents.cont[contents.y].empty() and                        \
         contents.cont.size() - 1 != contents.y) {                    \
     } else if ((contents.y >= contents.cont.size()) or               \
                (contents.y == contents.cont.size() - 1 and           \

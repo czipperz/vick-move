@@ -23,7 +23,7 @@ mvbw(contents& contents, boost::optional<int> op) {
         (contents.y == 0 or                                          \
          not contents.cont[contents.y].empty()) and                  \
         (contents.y == 0 or not isWhitespace(ch) or                  \
-         contents.cont[contents.y].size() == 0)) {                   \
+         contents.cont[contents.y].empty())) {                       \
         if (contents.x == contents.cont[contents.y].size() - 1)      \
             mvf(contents);                                           \
         return boost::none;                                          \
