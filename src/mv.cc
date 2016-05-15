@@ -1,6 +1,6 @@
 #include <boost/optional.hpp>
 
-#include "../../../src/contents.hh"
+#include "contents.hh"
 
 namespace vick {
 namespace move {

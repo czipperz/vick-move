@@ -1,8 +1,8 @@
 #include <boost/optional.hpp>
 
-#include "../../../src/contents.hh"
-#include "../../../src/show_message.hh"
-#include "../../../src/visual.hh"
+#include "contents.hh"
+#include "show_message.hh"
+#include "visual.hh"
 
 namespace vick {
 namespace move {

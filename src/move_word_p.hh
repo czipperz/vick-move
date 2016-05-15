@@ -1,6 +1,6 @@
 #include <locale>
 
-#include "../../../src/configuration.hh"
+#include "configuration.hh"
 
 namespace vick {
 

@@ -1,4 +1,4 @@
-#include "../../../src/show_message.hh"
+#include "show_message.hh"
 #include "move.hh"
 
 namespace vick {

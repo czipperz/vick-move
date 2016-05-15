@@ -1,6 +1,6 @@
-#include "../../../src/contents.hh"
-#include "../../../src/configuration.hh"
-#include "../../../src/show_message.hh"
+#include "contents.hh"
+#include "configuration.hh"
+#include "show_message.hh"
 #include "move.hh"
 
 namespace vick {

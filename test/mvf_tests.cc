@@ -1,7 +1,7 @@
 #include <ncurses.h>
 
 #include "../src/move.hh"
-#include "../../../test/catch.hpp"
+#include "catch.hpp"
 
 using namespace vick;
 using vick::move::mvf;
