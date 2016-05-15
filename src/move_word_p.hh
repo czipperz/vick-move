@@ -10,7 +10,6 @@ inline static bool isDeliminator(char ch) {
 }
 
 inline static bool isWhitespace(char ch) {
-    static const std::locale loc;
-    return std::isspace(ch, loc);
+    return std::isspace(ch, std::locale());
 }
 }
