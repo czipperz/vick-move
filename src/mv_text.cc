@@ -4,8 +4,8 @@
 
 #include <boost/optional.hpp>
 
-#include "move.hh"
 #include "contents.hh"
+#include "move.hh"
 
 namespace vick {
 namespace move {

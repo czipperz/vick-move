@@ -3,8 +3,8 @@
 
 #include <ncurses.h>
 
-#include "catch.hpp"
 #include "../src/move.hh"
+#include "catch.hpp"
 
 using namespace vick;
 using vick::move::mv;

@@ -4,10 +4,10 @@
 
 #include <boost/optional.hpp>
 
-#include "move.hh"
 #include "contents.hh"
-#include "show_message.hh"
+#include "move.hh"
 #include "prompt.hh"
+#include "show_message.hh"
 
 namespace vick {
 namespace move {
