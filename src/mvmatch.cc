@@ -4,7 +4,7 @@
 
 #include "configuration.hh"
 #include "contents.hh"
-#include "move.hh"
+#include "../lib.hh"
 #include "show_message.hh"
 
 namespace vick {

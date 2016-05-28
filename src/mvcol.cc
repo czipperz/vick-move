@@ -7,7 +7,7 @@
 #include "contents.hh"
 #include "prompt.hh"
 #include "show_message.hh"
-#include "move.hh"
+#include "../lib.hh"
 
 namespace vick {
 namespace move {

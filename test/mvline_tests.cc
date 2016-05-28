@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 
-#include "../src/move.hh"
+#include "../lib.hh"
 #include "catch.hpp"
 
 using namespace vick;
