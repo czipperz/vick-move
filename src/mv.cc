@@ -5,6 +5,7 @@
 #include <boost/optional.hpp>
 
 #include "contents.hh"
+#include "move.hh"
 
 namespace vick {
 namespace move {
