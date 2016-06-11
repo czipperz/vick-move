@@ -10,9 +10,7 @@ using namespace vick;
 using vick::move::mvf;
 
 TEST_CASE("mvf", "[mvf]") {
-    contents contents;
-    contents.push_back("assert");
-    contents.push_back("hello");
+    contents contents({"assert", "hello"});
 
     initscr();
     mvf(contents, 3);
@@ -45,10 +43,8 @@ TEST_CASE("mvf_2", "[mvf]") {
 }
 
 TEST_CASE("mvf_over_empty_lines", "[mvf]") {
-    contents contents(0, 1);
-    contents.push_back("hi");
-    contents.push_back("");
-    contents.push_back("hi");
+    contents contents({"hi", "", "hi"});
+    contents.yx(0, 1);
 
     initscr();
     mvf(contents, boost::none);
@@ -58,9 +54,9 @@ TEST_CASE("mvf_over_empty_lines", "[mvf]") {
 }
 
 TEST_CASE("mvf_over_tabs", "[mvf]") {
-    contents contents(0, 25);
-    contents.push_back("testVI: ${files} $O/main.o");
-    contents.push_back("\t${CC} -o testVI $^ $(CFLAGS)");
+    contents contents({"testVI: ${files} $O/main.o",
+                       "\t${CC} -o testVI $^ $(CFLAGS)"});
+    contents.yx(0, 25);
 
     initscr();
     mvf(contents, boost::none);

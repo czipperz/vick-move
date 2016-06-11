@@ -10,9 +10,8 @@ using namespace vick;
 using vick::move::mvb;
 
 TEST_CASE("mvb", "[mvb]") {
-    contents contents(1, 0);
-    contents.push_back("assert");
-    contents.push_back("back");
+    contents contents({"assert", "back"});
+    contents.yx(1, 0);
 
     initscr();
     mvb(contents, 2);

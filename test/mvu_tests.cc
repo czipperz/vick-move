@@ -10,9 +10,8 @@ using namespace vick;
 using vick::move::mvu;
 
 TEST_CASE("mvu", "[mvu]") {
-    contents contents(1, 6);
-    contents.push_back("hi");
-    contents.push_back("Alabama");
+    contents contents({"hi", "Alabama"});
+    contents.yx(1, 6);
 
     initscr();
     mvu(contents, boost::none);

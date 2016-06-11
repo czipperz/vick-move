@@ -10,8 +10,8 @@ using namespace vick;
 using vick::move::mvsol;
 
 TEST_CASE("mvsol", "[mvsol]") {
-    contents contents(0, 5);
-    contents.push_back("    assert");
+    contents contents({"    assert"});
+    contents.yx(0, 5);
 
     initscr();
     mvsol(contents, boost::none);
