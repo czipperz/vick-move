@@ -22,7 +22,7 @@ mvline(contents& contents, boost::optional<int> line) {
             contents.y = 0;
             return boost::none;
         }
-        contents.y = cont;
+        contents.y = static_cast<move_t>(cont);
         if (static_cast<decltype(contents.cont.size())>(cont) >=
             contents.cont.size()) {
             contents.y = contents.cont.size() - 1;

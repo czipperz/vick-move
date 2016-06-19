@@ -17,7 +17,7 @@ mvcol(contents& contents, boost::optional<int> col) {
     if (col) {
         size_t len = contents.cont[contents.y].length();
         if (len >= static_cast<decltype(len)>(col.get())) {
-            contents.x = col.get();
+            contents.x = static_cast<move_t>(col.get());
             contents.waiting_for_desired = false;
         } else {
             show_message(std::string("Can't move to column: ") +
