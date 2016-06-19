@@ -13,9 +13,7 @@ TEST_CASE("mvsol", "[mvsol]") {
     contents contents({"    assert"});
     contents.yx(0, 5);
 
-    initscr();
     mvsol(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
-    endwin();
 }

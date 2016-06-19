@@ -13,11 +13,9 @@ TEST_CASE("mvu", "[mvu]") {
     contents contents({"hi", "Alabama"});
     contents.yx(1, 6);
 
-    initscr();
     mvu(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 1);
     CHECK(contents.waiting_for_desired);
     CHECK(contents.desired_x == 6);
-    endwin();
 }

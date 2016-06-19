@@ -12,7 +12,6 @@ using vick::move::mv;
 TEST_CASE("mv", "[mv]") {
     contents contents({"assert", "blah", "hi", "nop"});
 
-    initscr();
     mv(contents, 1, 4); // past end
     CHECK(contents.y == 1);
     CHECK(contents.x == 3);
@@ -24,5 +23,4 @@ TEST_CASE("mv", "[mv]") {
     mv(contents, 6, 2);
     CHECK(contents.y == 3);
     CHECK(contents.x == 2);
-    endwin();
 }

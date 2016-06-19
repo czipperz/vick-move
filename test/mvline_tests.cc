@@ -13,7 +13,7 @@ TEST_CASE("mvline", "[mvline]") {
     contents contents({"hi", "bye", "aseuior", "etc"});
     contents.x = 1; // make sure set x to 0
 
-    initscr();
+    visual_setup _;
     mvline(contents, 1);
     CHECK(contents.y == 1);
     CHECK(contents.x == 0);
@@ -25,5 +25,4 @@ TEST_CASE("mvline", "[mvline]") {
     mvline(contents, 4);
     CHECK(contents.y == 3);
     CHECK(contents.x == 0);
-    endwin();
 }

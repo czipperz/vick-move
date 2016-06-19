@@ -13,9 +13,7 @@ TEST_CASE("mvb", "[mvb]") {
     contents contents({"assert", "back"});
     contents.yx(1, 0);
 
-    initscr();
     mvb(contents, 2);
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
-    endwin();
 }

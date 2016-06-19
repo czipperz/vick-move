@@ -13,7 +13,6 @@ TEST_CASE("mvbw", "[mvbw]") {
     contents contents({" a bunch of random text to test it"});
     contents.x = contents.cont[0].size() - 1;
 
-    initscr();
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 32);
@@ -21,7 +20,6 @@ TEST_CASE("mvbw", "[mvbw]") {
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 27);
-    endwin();
 }
 
 TEST_CASE("mvbw_2", "[mvbw]") {
@@ -29,11 +27,9 @@ TEST_CASE("mvbw_2", "[mvbw]") {
     contents.x = 5;
     REQUIRE(contents.y == 0);
 
-    initscr();
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 1);
-    endwin();
 }
 
 TEST_CASE("mvbw_3", "[mvbw]") {
@@ -41,11 +37,9 @@ TEST_CASE("mvbw_3", "[mvbw]") {
     contents.x = 6;
     REQUIRE(contents.y == 0);
 
-    initscr();
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 2);
-    endwin();
 }
 
 TEST_CASE("mvbw_4", "[mvbw]") {
@@ -53,11 +47,9 @@ TEST_CASE("mvbw_4", "[mvbw]") {
     contents.x = 4;
     REQUIRE(contents.y == 0);
 
-    initscr();
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
-    endwin();
 }
 
 TEST_CASE("mvbw_over_lines", "[mvbw]") {
@@ -67,7 +59,6 @@ TEST_CASE("mvbw_over_lines", "[mvbw]") {
     contents.y = 4;
     contents.x = 10;
 
-    initscr();
     mvbw(contents);
     CHECK(contents.y == 4);
     CHECK(contents.x == 7);
@@ -87,5 +78,4 @@ TEST_CASE("mvbw_over_lines", "[mvbw]") {
     mvbw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
-    endwin();
 }

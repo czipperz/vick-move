@@ -12,7 +12,6 @@ using vick::move::mvfw;
 TEST_CASE("mvfw", "[mvfw]") {
     contents contents({" a bunch of random text to test it"});
 
-    initscr();
     mvfw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 1);
@@ -20,5 +19,4 @@ TEST_CASE("mvfw", "[mvfw]") {
     mvfw(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 3);
-    endwin();
 }

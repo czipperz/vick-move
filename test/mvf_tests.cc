@@ -12,7 +12,6 @@ using vick::move::mvf;
 TEST_CASE("mvf", "[mvf]") {
     contents contents({"assert", "hello"});
 
-    initscr();
     mvf(contents, 3);
     CHECK(contents.y == 0);
     CHECK(contents.x == 3);
@@ -20,7 +19,6 @@ TEST_CASE("mvf", "[mvf]") {
     mvf(contents, 4);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
-    endwin();
 }
 
 TEST_CASE("mvf_2", "[mvf]") {
@@ -30,22 +28,18 @@ TEST_CASE("mvf_2", "[mvf]") {
     contents.y = 0;
     contents.x = 21;
 
-    initscr();
     mvf(contents, 2);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
-    endwin();
 }
 
 TEST_CASE("mvf_over_empty_lines", "[mvf]") {
     contents contents({"hi", "", "hi"});
     contents.yx(0, 1);
 
-    initscr();
     mvf(contents, boost::none);
     CHECK(contents.y == 1);
     CHECK(contents.x == 0);
-    endwin();
 }
 
 TEST_CASE("mvf_over_tabs", "[mvf]") {
@@ -53,7 +47,6 @@ TEST_CASE("mvf_over_tabs", "[mvf]") {
                        "\t${CC} -o testVI $^ $(CFLAGS)"});
     contents.yx(0, 25);
 
-    initscr();
     mvf(contents, boost::none);
     CHECK(contents.y == 1);
     CHECK(contents.x == 0);
@@ -61,5 +54,4 @@ TEST_CASE("mvf_over_tabs", "[mvf]") {
     mvf(contents, boost::none);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
-    endwin();
 }

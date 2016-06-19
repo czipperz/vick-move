@@ -12,9 +12,7 @@ using vick::move::mvsot;
 TEST_CASE("mvsot", "[mvsot]") {
     contents contents({"    hello"});
 
-    initscr();
     mvsot(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
-    endwin();
 }

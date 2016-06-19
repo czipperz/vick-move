@@ -12,9 +12,7 @@ using vick::move::mveol;
 TEST_CASE("mveol", "[mveol]") {
     contents contents({"Aesop"});
 
-    initscr();
     mveol(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
-    endwin();
 }
