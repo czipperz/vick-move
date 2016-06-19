@@ -10,11 +10,7 @@ using namespace vick;
 using vick::move::mv;
 
 TEST_CASE("mv", "[mv]") {
-    contents contents;
-    contents.push_back("assert");
-    contents.push_back("blah");
-    contents.push_back("hi");
-    contents.push_back("nop");
+    contents contents({"assert", "blah", "hi", "nop"});
 
     initscr();
     mv(contents, 1, 4); // past end

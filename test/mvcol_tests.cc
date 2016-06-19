@@ -10,8 +10,7 @@ using namespace vick;
 using vick::move::mvcol;
 
 TEST_CASE("mvcol", "[mvcol]") {
-    contents contents;
-    contents.push_back("asert");
+    contents contents({"asert"});
 
     initscr();
     mvcol(contents, 3);

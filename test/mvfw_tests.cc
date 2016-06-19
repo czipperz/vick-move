@@ -10,8 +10,7 @@ using namespace vick;
 using vick::move::mvfw;
 
 TEST_CASE("mvfw", "[mvfw]") {
-    contents contents;
-    contents.push_back(" a bunch of random text to test it");
+    contents contents({" a bunch of random text to test it"});
 
     initscr();
     mvfw(contents);

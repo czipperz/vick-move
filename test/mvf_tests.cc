@@ -24,13 +24,8 @@ TEST_CASE("mvf", "[mvf]") {
 }
 
 TEST_CASE("mvf_2", "[mvf]") {
-    contents contents;
-    contents.push_back("CFLAGS=-lncurses -Wall");
-    contents.push_back("O=out");
-    contents.push_back("S=src");
-    contents.push_back("T=test");
-    contents.push_back("TO=testout");
-    contents.push_back("CC=g++");
+    contents contents({"CFLAGS=-lncurses -Wall", "O=out", "S=src",
+                       "T=test", "TO=testout", "CC=g++"});
 
     contents.y = 0;
     contents.x = 21;

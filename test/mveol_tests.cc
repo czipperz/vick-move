@@ -10,8 +10,7 @@ using namespace vick;
 using vick::move::mveol;
 
 TEST_CASE("mveol", "[mveol]") {
-    contents contents;
-    contents.push_back("Aesop");
+    contents contents({"Aesop"});
 
     initscr();
     mveol(contents, boost::none);

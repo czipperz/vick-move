@@ -10,12 +10,8 @@ using namespace vick;
 using vick::move::mvline;
 
 TEST_CASE("mvline", "[mvline]") {
-    contents contents;
+    contents contents({"hi", "bye", "aseuior", "etc"});
     contents.x = 1; // make sure set x to 0
-    contents.push_back("hi");
-    contents.push_back("bye");
-    contents.push_back("aseuior");
-    contents.push_back("etc");
 
     initscr();
     mvline(contents, 1);

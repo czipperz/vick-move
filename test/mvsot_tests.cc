@@ -10,8 +10,7 @@ using namespace vick;
 using vick::move::mvsot;
 
 TEST_CASE("mvsot", "[mvsot]") {
-    contents contents;
-    contents.push_back("    hello");
+    contents contents({"    hello"});
 
     initscr();
     mvsot(contents, boost::none);

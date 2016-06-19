@@ -10,10 +10,7 @@ using namespace vick;
 using vick::move::mvd;
 
 TEST_CASE("mvd", "[mvd]") {
-    contents contents;
-    contents.push_back("assert");
-    contents.push_back("hello");
-    contents.push_back("aseuirpo");
+    contents contents({"assert", "hello", "aseuirpo"});
 
     initscr();
     mvd(contents, 2);
@@ -27,11 +24,8 @@ TEST_CASE("mvd", "[mvd]") {
 }
 
 TEST_CASE("mvd_2", "[mvd]") {
-    contents contents;
-    contents.push_back("CFLAGS=-lncurses -Wall");
-    contents.push_back("O=out");
-    contents.push_back("S=src");
-    contents.push_back("T=test");
+    contents contents(
+        {"CFLAGS=-lncurses -Wall", "O=out", "S=src", "T=test"});
 
     contents.y = 0;
     contents.x = 21;
