@@ -24,9 +24,7 @@ TEST_CASE("mvf", "[mvf]") {
 TEST_CASE("mvf_2", "[mvf]") {
     contents contents({"CFLAGS=-lncurses -Wall", "O=out", "S=src",
                        "T=test", "TO=testout", "CC=g++"});
-
-    contents.y = 0;
-    contents.x = 21;
+    contents.yx(0, 21);
 
     mvf(contents, 2);
     CHECK(contents.y == 1);

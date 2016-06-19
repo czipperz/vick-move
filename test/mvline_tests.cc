@@ -11,7 +11,7 @@ using vick::move::mvline;
 
 TEST_CASE("mvline", "[mvline]") {
     contents contents({"hi", "bye", "aseuior", "etc"});
-    contents.x = 1; // make sure set x to 0
+    contents.yx(0, 1); // make sure set x to 0
 
     visual_setup _;
     mvline(contents, 1);

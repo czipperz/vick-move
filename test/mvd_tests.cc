@@ -24,9 +24,7 @@ TEST_CASE("mvd", "[mvd]") {
 TEST_CASE("mvd_2", "[mvd]") {
     contents contents(
         {"CFLAGS=-lncurses -Wall", "O=out", "S=src", "T=test"});
-
-    contents.y = 0;
-    contents.x = 21;
+    contents.yx(0, 21);
 
     mvd(contents, boost::none);
     CHECK(contents.y == 1);

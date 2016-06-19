@@ -24,8 +24,7 @@ TEST_CASE("mvbw", "[mvbw]") {
 
 TEST_CASE("mvbw_2", "[mvbw]") {
     contents contents({" {-# LANGUAGE CPP #-}"});
-    contents.x = 5;
-    REQUIRE(contents.y == 0);
+    contents.yx(0, 5);
 
     mvbw(contents);
     CHECK(contents.y == 0);
@@ -34,8 +33,7 @@ TEST_CASE("mvbw_2", "[mvbw]") {
 
 TEST_CASE("mvbw_3", "[mvbw]") {
     contents contents({"  {-# LANGUAGE CPP #-}"});
-    contents.x = 6;
-    REQUIRE(contents.y == 0);
+    contents.yx(0, 6);
 
     mvbw(contents);
     CHECK(contents.y == 0);
@@ -44,8 +42,7 @@ TEST_CASE("mvbw_3", "[mvbw]") {
 
 TEST_CASE("mvbw_4", "[mvbw]") {
     contents contents({"{-# LANGUAGE CPP #-}"});
-    contents.x = 4;
-    REQUIRE(contents.y == 0);
+    contents.yx(0, 4);
 
     mvbw(contents);
     CHECK(contents.y == 0);
@@ -55,9 +52,7 @@ TEST_CASE("mvbw_4", "[mvbw]") {
 TEST_CASE("mvbw_over_lines", "[mvbw]") {
     contents contents(
         {"", "", "#endif", "", "import Development.Shake"});
-
-    contents.y = 4;
-    contents.x = 10;
+    contents.yx(4, 10);
 
     mvbw(contents);
     CHECK(contents.y == 4);
