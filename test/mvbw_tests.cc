@@ -7,17 +7,17 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvbw;
+using namespace vick::move;
 
 TEST_CASE("mvbw", "[mvbw]") {
     contents contents({" a bunch of random text to test it"});
     contents.x = contents.cont[0].size() - 1;
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 32);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 27);
 }
@@ -26,7 +26,7 @@ TEST_CASE("mvbw_2", "[mvbw]") {
     contents contents({" {-# LANGUAGE CPP #-}"});
     contents.yx(0, 5);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 1);
 }
@@ -35,7 +35,7 @@ TEST_CASE("mvbw_3", "[mvbw]") {
     contents contents({"  {-# LANGUAGE CPP #-}"});
     contents.yx(0, 6);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 2);
 }
@@ -44,7 +44,7 @@ TEST_CASE("mvbw_4", "[mvbw]") {
     contents contents({"{-# LANGUAGE CPP #-}"});
     contents.yx(0, 4);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
 }
@@ -54,23 +54,23 @@ TEST_CASE("mvbw_over_lines", "[mvbw]") {
         {"", "", "#endif", "", "import Development.Shake"});
     contents.yx(4, 10);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 4);
     CHECK(contents.x == 7);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 4);
     CHECK(contents.x == 0);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 2);
     CHECK(contents.x == 1);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 2);
     CHECK(contents.x == 0);
 
-    mvbw(contents);
+    backward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
 }

@@ -7,16 +7,16 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvfw;
+using namespace vick::move;
 
 TEST_CASE("mvfw", "[mvfw]") {
     contents contents({" a bunch of random text to test it"});
 
-    mvfw(contents);
+    forward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 1);
 
-    mvfw(contents);
+    forward_begin_word(contents);
     CHECK(contents.y == 0);
     CHECK(contents.x == 3);
 }

@@ -7,18 +7,19 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvd;
+using namespace vick::move;
 
 TEST_CASE("mvd", "[mvd]") {
     contents contents({"assert", "hello", "aseuirpo"});
+    contents.x = 5;
 
-    mvd(contents, 2);
+    forward_line(contents, 2);
     CHECK(contents.y == 2);
-    CHECK(contents.x == 0);
+    CHECK(contents.x == 5);
 
-    mvd(contents, boost::none);
+    forward_line(contents, boost::none);
     CHECK(contents.y == 2);
-    CHECK(contents.x == 0);
+    CHECK(contents.x == 5);
 }
 
 TEST_CASE("mvd_2", "[mvd]") {
@@ -26,15 +27,15 @@ TEST_CASE("mvd_2", "[mvd]") {
         {"CFLAGS=-lncurses -Wall", "O=out", "S=src", "T=test"});
     contents.yx(0, 21);
 
-    mvd(contents, boost::none);
+    forward_line(contents, boost::none);
     CHECK(contents.y == 1);
-    CHECK(contents.x == 4);
+    CHECK(contents.x == 5);
     CHECK(contents.desired_x == 21);
     CHECK(contents.waiting_for_desired);
 
-    mvd(contents, boost::none);
+    forward_line(contents, boost::none);
     CHECK(contents.y == 2);
-    CHECK(contents.x == 4);
+    CHECK(contents.x == 5);
     CHECK(contents.desired_x == 21);
     CHECK(contents.waiting_for_desired);
 }

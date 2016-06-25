@@ -9,9 +9,9 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvbw(contents& contents, boost::optional<int> op) {
+backward_begin_word(contents& contents, boost::optional<int> op) {
     if (op and op.get() < 0)
-        return mvfw(contents, -op.get());
+        return forward_begin_word(contents, -op.get());
     const int num = op ? op.get() : 1;
     if (num == 0)
         return boost::none;
@@ -29,35 +29,35 @@ mvbw(contents& contents, boost::optional<int> op) {
         (contents.y == 0 or not isWhitespace(ch) or                  \
          contents.cont[contents.y].empty())) {                       \
         if (contents.x == contents.cont[contents.y].size() - 1)      \
-            mvf(contents);                                           \
+            forward_char(contents);                                  \
         return boost::none;                                          \
     }
 #define ch contents.cont[contents.y][contents.x]
     if (contents.y == 0 and contents.x == 0)
         return boost::none;
-    mvb(contents);
+    backward_char(contents);
     while (contents.cont[contents.y].empty() or isWhitespace(ch)) {
         boundsCheck;
-        mvb(contents);
+        backward_char(contents);
     }
     if (isDeliminator(ch)) {
         while (isDeliminator(ch)) {
             boundsCheck;
-            mvb(contents);
+            backward_char(contents);
         }
-        mvf(contents);
+        forward_begin_word(contents);
     } else if (contents.x == 0 and
                not contents.cont[contents.y].empty()) {
         return boost::none;
     } else {
         while (not(isDeliminator(ch) or isWhitespace(ch))) {
             boundsCheck;
-            mvb(contents);
+            backward_char(contents);
         }
-        mvf(contents);
+        forward_begin_word(contents);
     }
     if (num > 1)
-        mvbw(contents, num - 1);
+        backward_begin_word(contents, num - 1);
     return boost::none;
 #undef boundsCheck
 #undef ch

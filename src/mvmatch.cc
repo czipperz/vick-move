@@ -2,16 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+#include "../lib.hh"
 #include "configuration.hh"
 #include "contents.hh"
-#include "../lib.hh"
 #include "show_message.hh"
 
 namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvmatch(contents& contents, boost::optional<int>) {
+match(contents& contents, boost::optional<int>) {
     if (MATCHES.size() % 2 != 0) {
         show_message(
             "MATCHES variable doesn't have an even number of "

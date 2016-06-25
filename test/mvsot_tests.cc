@@ -7,12 +7,12 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvsot;
+using namespace vick::move;
 
 TEST_CASE("mvsot", "[mvsot]") {
     contents contents({"    hello"});
 
-    mvsot(contents, boost::none);
+    start_text(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
 }

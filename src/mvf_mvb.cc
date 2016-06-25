@@ -2,8 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#include "show_message.hh"
 #include "../lib.hh"
+#include "show_message.hh"
 
 namespace vick {
 namespace move {
@@ -12,8 +12,9 @@ template <class T>
 inline static T fixLen(T len) {
     return len ? len : 1;
 }
+
 boost::optional<std::shared_ptr<change> >
-mvf(contents& contents, boost::optional<int> op) {
+forward_char(contents& contents, boost::optional<int> op) {
     if (contents.y == contents.cont.size() - 1 and
         contents.x == contents.cont[contents.y].size() - 1) {
         show_message(
@@ -36,8 +37,9 @@ mvf(contents& contents, boost::optional<int> op) {
     contents.waiting_for_desired = false;
     return boost::none;
 }
+
 boost::optional<std::shared_ptr<change> >
-mvb(contents& contents, boost::optional<int> op) {
+backward_char(contents& contents, boost::optional<int> op) {
     if (contents.y == 0 and contents.x == 0) {
         show_message(
             "Can't move to that location (start/end of buffer)");

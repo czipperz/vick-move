@@ -7,22 +7,22 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvline;
+using namespace vick::move;
 
 TEST_CASE("mvline", "[mvline]") {
     contents contents({"hi", "bye", "aseuior", "etc"});
     contents.yx(0, 1); // make sure set x to 0
 
     visual_setup _;
-    mvline(contents, 1);
+    line(contents, 1);
     CHECK(contents.y == 1);
     CHECK(contents.x == 0);
 
-    mvline(contents, -1);
+    line(contents, -1);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
 
-    mvline(contents, 4);
+    line(contents, 4);
     CHECK(contents.y == 3);
     CHECK(contents.x == 0);
 }

@@ -7,16 +7,16 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvf;
+using namespace vick::move;
 
 TEST_CASE("mvf", "[mvf]") {
     contents contents({"assert", "hello"});
 
-    mvf(contents, 3);
+    forward_char(contents, 3);
     CHECK(contents.y == 0);
     CHECK(contents.x == 3);
 
-    mvf(contents, 4);
+    forward_char(contents, 4);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
 }
@@ -26,7 +26,7 @@ TEST_CASE("mvf_2", "[mvf]") {
                        "T=test", "TO=testout", "CC=g++"});
     contents.yx(0, 21);
 
-    mvf(contents, 2);
+    forward_char(contents, 2);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
 }
@@ -35,8 +35,16 @@ TEST_CASE("mvf_over_empty_lines", "[mvf]") {
     contents contents({"hi", "", "hi"});
     contents.yx(0, 1);
 
-    mvf(contents, boost::none);
+    forward_char(contents, boost::none);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 2);
+
+    forward_char(contents, boost::none);
     CHECK(contents.y == 1);
+    CHECK(contents.x == 0);
+
+    forward_char(contents, boost::none);
+    CHECK(contents.y == 2);
     CHECK(contents.x == 0);
 }
 
@@ -45,11 +53,15 @@ TEST_CASE("mvf_over_tabs", "[mvf]") {
                        "\t${CC} -o testVI $^ $(CFLAGS)"});
     contents.yx(0, 25);
 
-    mvf(contents, boost::none);
+    forward_char(contents, boost::none);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 26);
+
+    forward_char(contents, boost::none);
     CHECK(contents.y == 1);
     CHECK(contents.x == 0);
 
-    mvf(contents, boost::none);
+    forward_char(contents, boost::none);
     CHECK(contents.y == 1);
     CHECK(contents.x == 1);
 }

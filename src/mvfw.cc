@@ -9,9 +9,9 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvfw(contents& contents, boost::optional<int> op) {
+forward_begin_word(contents& contents, boost::optional<int> op) {
     if (op and op.get() < 0)
-        return mvbw(contents, -op.get());
+        return backward_begin_word(contents, -op.get());
     int num = op ? op.get() : 1;
     if (num == 0)
         return boost::none;
@@ -32,30 +32,30 @@ mvfw(contents& contents, boost::optional<int> op) {
 #define ch contents.cont[contents.y][contents.x]
     if (isWhitespace(ch)) {
         do {
-            mvf(contents);
+            forward_char(contents);
             boundsCheck;
         } while (isWhitespace(ch));
     } else if (isDeliminator(ch)) {
         do {
-            mvf(contents);
+            forward_char(contents);
             boundsCheck;
         } while (isDeliminator(ch));
         while (isWhitespace(ch)) {
-            mvf(contents);
+            forward_char(contents);
             boundsCheck;
         }
     } else /* word character */ {
         do {
-            mvf(contents);
+            forward_char(contents);
             boundsCheck;
         } while (not isDeliminator(ch) and not isWhitespace(ch));
         while (isWhitespace(ch)) {
-            mvf(contents);
+            forward_char(contents);
             boundsCheck;
         }
     }
     if (num > 1)
-        mvfw(contents, num - 1);
+        forward_begin_word(contents, num - 1);
     return boost::none;
 #undef boundsCheck
 #undef ch

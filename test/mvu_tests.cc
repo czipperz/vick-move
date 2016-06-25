@@ -7,15 +7,15 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvu;
+using namespace vick::move;
 
 TEST_CASE("mvu", "[mvu]") {
     contents contents({"hi", "Alabama"});
     contents.yx(1, 6);
 
-    mvu(contents, boost::none);
+    backward_line(contents, boost::none);
     CHECK(contents.y == 0);
-    CHECK(contents.x == 1);
+    CHECK(contents.x == 2);
     CHECK(contents.waiting_for_desired);
     CHECK(contents.desired_x == 6);
 }

@@ -7,13 +7,13 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvsol;
+using namespace vick::move;
 
 TEST_CASE("mvsol", "[mvsol]") {
     contents contents({"    assert"});
     contents.yx(0, 5);
 
-    mvsol(contents, boost::none);
+    start_line(contents, boost::none);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
 }

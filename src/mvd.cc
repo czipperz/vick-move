@@ -4,24 +4,24 @@
 
 #include <boost/optional.hpp>
 
+#include "../lib.hh"
 #include "contents.hh"
 #include "show_message.hh"
 #include "visual.hh"
-#include "../lib.hh"
 
 namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvd(contents& contents, boost::optional<int> op) {
+forward_line(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
-    if (static_cast<move_ts>(contents.y + times) < 0 or
-        contents.y + times >= contents.cont.size()) {
+    if ((times < 0 and contents.y < -times) or
+        (times > 0 and contents.y + times >= contents.cont.size())) {
         show_message(
             "Can't move to that location (start/end of buffer)");
         return boost::none;
     }
-    int vis = to_visual(contents.cont[contents.y], contents.x);
+    auto vis = to_visual(contents.cont[contents.y], contents.x);
     contents.y += times;
     size_t len = contents.cont[contents.y].length();
     if (contents.waiting_for_desired) {
@@ -50,7 +50,7 @@ mvd(contents& contents, boost::optional<int> op) {
         contents.desired_x = contents.x;
         contents.x = len - 1;
     } else {
-        int des = contents.x;
+        auto des = contents.x;
         contents.x = from_visual(contents.cont[contents.y], vis);
         if (len == 0) {
             contents.waiting_for_desired = true;
@@ -63,8 +63,8 @@ mvd(contents& contents, boost::optional<int> op) {
 }
 
 boost::optional<std::shared_ptr<change> >
-mvu(contents& contents, boost::optional<int> op) {
-    return mvd(contents, op ? -op.get() : -1);
+backward_line(contents& contents, boost::optional<int> op) {
+    return forward_line(contents, op ? -op.get() : -1);
 }
 }
 }

@@ -4,18 +4,18 @@
 
 #include <boost/optional.hpp>
 
-#include "contents.hh"
 #include "../lib.hh"
+#include "contents.hh"
 
 namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvsot(contents& contents, boost::optional<int>) {
+start_text(contents& contents, boost::optional<int>) {
     contents.waiting_for_desired = false;
     contents.x = 0;
     for (auto c : contents.cont[contents.y]) {
-        if (c == ' ' or c == '\t') {
+        if (std::isblank(c)) {
             contents.x++;
         } else {
             break;

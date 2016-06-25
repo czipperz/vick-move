@@ -7,13 +7,13 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvb;
+using namespace vick::move;
 
 TEST_CASE("mvb", "[mvb]") {
     contents contents({"assert", "back"});
     contents.yx(1, 0);
 
-    mvb(contents, 2);
+    backward_char(contents, 2);
     CHECK(contents.y == 0);
     CHECK(contents.x == 4);
 }

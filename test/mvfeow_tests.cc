@@ -7,16 +7,23 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvfeow;
+using namespace vick::move;
 
 TEST_CASE("mvfeow", "[mvfeow]") {
     contents contents({" a bunch of random text to test it"});
 
-    mvfeow(contents);
+    forward_end_word(contents);
     CHECK(contents.y == 0);
-    CHECK(contents.x == 1);
+    CHECK(contents.x == 2);
 
-    mvfeow(contents);
+    forward_end_word(contents);
     CHECK(contents.y == 0);
-    CHECK(contents.x == 7);
+    CHECK(contents.x == 8);
+
+    // space before 'it'
+    contents.x = contents.cont[0].size() - 4;
+
+    forward_end_word(contents);
+    CHECK(contents.y == 0);
+    CHECK(contents.x == contents.cont[0].size());
 }

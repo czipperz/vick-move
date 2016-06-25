@@ -4,8 +4,8 @@
 
 #include <boost/optional.hpp>
 
-#include "contents.hh"
 #include "../lib.hh"
+#include "contents.hh"
 #include "prompt.hh"
 #include "show_message.hh"
 
@@ -13,7 +13,7 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvline(contents& contents, boost::optional<int> line) {
+line(contents& contents, boost::optional<int> line) {
     if (line) {
         contents.x = 0;
         int cont = line.get();
@@ -34,7 +34,7 @@ mvline(contents& contents, boost::optional<int> line) {
             if (not str)
                 return boost::none;
             try {
-                return mvline(contents, std::stoi(*str));
+                return move::line(contents, std::stoi(*str));
             } catch (const std::invalid_argument&) {
             }
             str = prompt("Goto line (last answer not an int): ");
@@ -44,7 +44,7 @@ mvline(contents& contents, boost::optional<int> line) {
 }
 
 boost::optional<std::shared_ptr<change> >
-mveol(contents& contents, boost::optional<int>) {
+end_line(contents& contents, boost::optional<int>) {
     if (contents.cont[contents.y].empty())
         contents.x = 0;
     else
@@ -53,12 +53,12 @@ mveol(contents& contents, boost::optional<int>) {
 }
 
 boost::optional<std::shared_ptr<change> >
-mvsol(contents& contents, boost::optional<int>) {
-    return mvcol(contents, 0);
+start_line(contents& contents, boost::optional<int>) {
+    return column(contents, 0);
 }
 
 boost::optional<std::shared_ptr<change> >
-mvsop(contents& contents, boost::optional<int>) {
+start_page(contents& contents, boost::optional<int>) {
     contents.y = 0;
     contents.x = 0;
     contents.waiting_for_desired = false;
@@ -66,7 +66,7 @@ mvsop(contents& contents, boost::optional<int>) {
 }
 
 boost::optional<std::shared_ptr<change> >
-mveop(contents& contents, boost::optional<int>) {
+end_page(contents& contents, boost::optional<int>) {
     contents.y = contents.cont.size() - 1;
     contents.x = 0;
     contents.waiting_for_desired = false;

@@ -7,12 +7,12 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mveol;
+using namespace vick::move;
 
 TEST_CASE("mveol", "[mveol]") {
     contents contents({"Aesop"});
 
-    mveol(contents, boost::none);
+    end_line(contents, boost::none);
     CHECK(contents.y == 0);
-    CHECK(contents.x == 4);
+    CHECK(contents.x == 5);
 }

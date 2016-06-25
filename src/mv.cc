@@ -4,19 +4,21 @@
 
 #include <boost/optional.hpp>
 
-#include "contents.hh"
 #include "../lib.hh"
+#include "contents.hh"
 
 namespace vick {
 namespace move {
 
-void mv(contents& contents, move_t y, move_t x) {
+boost::optional<std::shared_ptr<change> >
+yx(contents& contents, move_t y, move_t x) {
     if (y >= contents.cont.size())
         y = contents.cont.size() - 1;
     if (x >= contents.cont[y].size())
         x = contents.cont[y].size() - 1;
     contents.y = y;
     contents.x = x;
+    return boost::none;
 }
 }
 }

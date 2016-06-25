@@ -5,21 +5,30 @@
 #include "catch.hpp"
 
 using namespace vick;
-using vick::move::mvcol;
+using namespace vick::move;
 
 TEST_CASE("mvcol", "[mvcol]") {
     contents contents({"asert"});
 
     visual_setup _;
-    mvcol(contents, 3);
+    column(contents, 3);
     CHECK(contents.y == 0);
     CHECK(contents.x == 3);
+    CHECK_FALSE(contents.waiting_for_desired);
 
-    mvcol(contents, 10); // doesn't do anything
+    column(contents, 5);
     CHECK(contents.y == 0);
-    CHECK(contents.x == 3);
+    CHECK(contents.y == 5);
+    CHECK_FALSE(contents.waiting_for_desired);
 
-    mvcol(contents, 0);
+    column(contents, 10); // doesn't do anything
+    CHECK(contents.y == 0);
+    CHECK(contents.x == 5);
+    CHECK(contents.desired_x == 10);
+    CHECK(contents.waiting_for_desired);
+
+    column(contents, 0);
     CHECK(contents.y == 0);
     CHECK(contents.x == 0);
+    CHECK_FALSE(contents.waiting_for_desired);
 }

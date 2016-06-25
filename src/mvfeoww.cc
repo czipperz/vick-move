@@ -9,9 +9,10 @@ namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvfeoww(contents& contents, boost::optional<int> op) {
+forward_end_wword(contents& contents, boost::optional<int> op) {
     if (op and op.get() < 0)
-        return mvbww(contents, -op.get());
+        // end
+        return backward_begin_wword(contents, -op.get());
     int num = op ? op.get() : 1;
     if (num == 0)
         return boost::none;
@@ -21,20 +22,20 @@ mvfeoww(contents& contents, boost::optional<int> op) {
          contents.x >= contents.cont[contents.y].size()) or          \
         (contents.cont[contents.y].size() and contents.x == 0 and    \
          not isWhitespace(ch))) {                                    \
-        mvb(contents);                                               \
+        backward_char(contents);                                     \
         return boost::none;                                          \
     }
 #define ch contents.cont[contents.y][contents.x]
-    mvf(contents);
+    forward_char(contents);
     while (isWhitespace(ch)) {
-        mvf(contents);
+        forward_char(contents);
         boundsCheck;
     }
     do {
-        mvf(contents);
+        forward_char(contents);
         boundsCheck;
     } while (not isWhitespace(ch));
-    mvb(contents);
+    backward_char(contents);
     return boost::none;
 #undef boundsCheck
 #undef ch

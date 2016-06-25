@@ -4,16 +4,16 @@
 
 #include <boost/optional.hpp>
 
+#include "../lib.hh"
 #include "contents.hh"
 #include "prompt.hh"
 #include "show_message.hh"
-#include "../lib.hh"
 
 namespace vick {
 namespace move {
 
 boost::optional<std::shared_ptr<change> >
-mvcol(contents& contents, boost::optional<int> col) {
+column(contents& contents, boost::optional<int> col) {
     if (col) {
         size_t len = contents.cont[contents.y].length();
         if (len >= static_cast<decltype(len)>(col.get())) {
@@ -29,7 +29,7 @@ mvcol(contents& contents, boost::optional<int> col) {
             if (not str)
                 return boost::none;
             try {
-                return mvcol(contents, std::stoi(*str));
+                return column(contents, std::stoi(*str));
             } catch (const std::invalid_argument&) {
             }
             str = prompt("Goto column (last answer not an int): ");
