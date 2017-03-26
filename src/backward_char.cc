@@ -4,7 +4,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 backward_char(contents& contents, boost::optional<int> op) {
     int times = op ? *op : 1;
     if (times < 0) {
@@ -20,7 +20,7 @@ backward_char(contents& contents, boost::optional<int> op) {
             --contents.x;
         }
     }
-    return boost::none;
+    return nullptr;
 }
 }
 }

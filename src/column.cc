@@ -12,7 +12,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 column(contents& contents, boost::optional<int> col) {
     if (col) {
         size_t len = contents.cont[contents.y].length();
@@ -31,7 +31,7 @@ column(contents& contents, boost::optional<int> col) {
         boost::optional<std::string> str = prompt("Goto column: ");
         while (true) {
             if (not str) {
-                return boost::none;
+                return nullptr;
             }
             try {
                 return column(contents, std::stoi(*str));
@@ -41,7 +41,7 @@ column(contents& contents, boost::optional<int> col) {
             }
         }
     }
-    return boost::none;
+    return nullptr;
 }
 }
 }

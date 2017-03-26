@@ -12,7 +12,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 backward_line(contents& contents, boost::optional<int> op) {
     return forward_line(contents, op ? -op.get() : -1);
 }

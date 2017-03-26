@@ -8,7 +8,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 end_text(contents& contents, boost::optional<int>) {
     contents.waiting_for_desired = false;
     contents.x = contents.cont[contents.y].size();
@@ -21,7 +21,7 @@ end_text(contents& contents, boost::optional<int>) {
             break;
         }
     }
-    return boost::none;
+    return nullptr;
 }
 }
 }

@@ -10,13 +10,13 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 match(contents& contents, boost::optional<int>) {
     if (MATCHES.size() % 2 != 0) {
         show_message(
             "MATCHES variable doesn't have an even number of "
             "elements, don't know how to make matches");
-        return boost::none;
+        return nullptr;
     }
 
     auto y = contents.y;
@@ -26,7 +26,7 @@ match(contents& contents, boost::optional<int>) {
     while (x_fin == std::string::npos) {
         if (++y >= contents.cont.size()) {
             show_message("Can't find any matches in string");
-            return boost::none;
+            return nullptr;
         }
         x_fin = contents.cont[y].find_first_of(MATCHES);
     }
@@ -71,7 +71,7 @@ match(contents& contents, boost::optional<int>) {
                     std::string(
                         "Can't find any matches in string for ") +
                     match);
-                return boost::none;
+                return nullptr;
             }
             x_beg = contents.cont[y].find_first_of(both);
             testforward;
@@ -86,7 +86,7 @@ match(contents& contents, boost::optional<int>) {
                     std::string(
                         "Can't find corresponding match for ") +
                     match);
-                return boost::none;
+                return nullptr;
             }
             x_beg = contents.cont[--y].find_last_of(both);
             testbackward;
@@ -97,7 +97,7 @@ set:
     contents.y = y;
     contents.x = x_beg;
 
-    return boost::none;
+    return nullptr;
 }
 }
 }

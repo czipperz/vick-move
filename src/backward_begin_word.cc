@@ -8,7 +8,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 backward_begin_word(contents& contents, boost::optional<int> op) {
     if (op and op.get() < 0)
         return forward_begin_word(contents, -op.get());
@@ -16,7 +16,7 @@ backward_begin_word(contents& contents, boost::optional<int> op) {
     if (op) {
         num = *op;
         if (num == 0) {
-            return boost::none;
+            return nullptr;
         }
     } else {
         num = 1;
@@ -54,7 +54,7 @@ backward_begin_word(contents& contents, boost::optional<int> op) {
         }
     }
 
-    return boost::none;
+    return nullptr;
 }
 }
 }

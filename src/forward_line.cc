@@ -12,7 +12,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 forward_line(contents& contents, boost::optional<int> op) {
     int times = op ? op.get() : 1;
     if (times < 0 ? contents.y < static_cast<move_t>(-times)
@@ -20,7 +20,7 @@ forward_line(contents& contents, boost::optional<int> op) {
                         contents.cont.size()) {
         show_message(
             "Can't move to that location (start/end of buffer)");
-        return boost::none;
+        return nullptr;
     }
 
     visual_t old_visx = to_visual(contents.cont[contents.y], contents.x);
@@ -69,7 +69,7 @@ forward_line(contents& contents, boost::optional<int> op) {
     // }
     // contents.x =
     //     static_cast<move_ts>(contents.x) >= 0 ? contents.x : 0;
-    return boost::none;
+    return nullptr;
 }
 }
 }

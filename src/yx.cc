@@ -10,7 +10,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 yx(contents& contents, move_t y, move_t x) {
     if (y >= contents.cont.size()) {
         y = contents.cont.size() - 1;
@@ -24,7 +24,7 @@ yx(contents& contents, move_t y, move_t x) {
     }
     contents.y = y;
     contents.x = x;
-    return boost::none;
+    return nullptr;
 }
 }
 }

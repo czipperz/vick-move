@@ -10,7 +10,7 @@
 namespace vick {
 namespace move {
 
-boost::optional<std::shared_ptr<change> >
+std::shared_ptr<change>
 start_buffer(contents& contents, boost::optional<int>) {
     return yx(contents, 0, 0);
 }
