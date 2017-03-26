@@ -28,7 +28,7 @@ TEST_CASE("vick::move::column", "[vick::move][vick::move::column]") {
     CHECK(contents.y == 0);
     CHECK(contents.x == 5);
     CHECK(contents.waiting_for_desired);
-    CHECK(contents.desired_x.unwrap() == 10);
+    CHECK(contents.desired_x == 10);
 
     // |asert
     column(contents, 0);

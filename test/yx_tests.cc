@@ -16,7 +16,7 @@ TEST_CASE("vick::move::yx 1", "[vick::move][vick::move::yx]") {
     CHECK(contents.y == 1);
     CHECK(contents.x == 4);
     CHECK(contents.waiting_for_desired);
-    CHECK(contents.desired_x.unwrap() == 7);
+    CHECK(contents.desired_x == 7);
 
     yx(contents, 2, 0);
     CHECK(contents.y == 2);

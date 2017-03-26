@@ -6,6 +6,7 @@
 
 #include "../lib.hh"
 #include "contents.hh"
+#include "visual.hh"
 
 namespace vick {
 namespace move {

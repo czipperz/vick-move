@@ -24,7 +24,7 @@ TEST_CASE("vick::move::forward_line",
     CHECK(contents.y == 3);
     CHECK(contents.x == 0);
     CHECK(contents.waiting_for_desired);
-    CHECK(contents.desired_x.unwrap() == 5);
+    CHECK(contents.desired_x == 5);
 }
 
 TEST_CASE("vick::move::forward_line 2",
@@ -38,7 +38,7 @@ TEST_CASE("vick::move::forward_line 2",
     CHECK(contents.y == 1);
     CHECK(contents.x == 5);
     CHECK(contents.waiting_for_desired);
-    CHECK(contents.desired_x.unwrap() == 20);
+    CHECK(contents.desired_x == 20);
 
     contents.x = 2;
 
@@ -46,5 +46,5 @@ TEST_CASE("vick::move::forward_line 2",
     CHECK(contents.y == 2);
     CHECK(contents.x == 5);
     CHECK(contents.waiting_for_desired);
-    CHECK(contents.desired_x.unwrap() == 20);
+    CHECK(contents.desired_x == 20);
 }
